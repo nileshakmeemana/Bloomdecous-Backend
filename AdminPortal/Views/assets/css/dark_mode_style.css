@@ -329,7 +329,7 @@ body.dark-mode .profile-header .profile-image {
    DARK MODE — Full-Screen Loader Spinner
 ================================ */
 body.dark-mode #pageLoader {
-    background-color: rgba(18, 18, 18, 0.9) !important; /* dark overlay */
+    background-color: rgb(18, 18, 18) !important; /* dark overlay */
 }
 
 body.dark-mode #pageLoader .loader-content {

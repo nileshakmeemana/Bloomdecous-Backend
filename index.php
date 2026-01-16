@@ -49,30 +49,35 @@ if ($result && mysqli_num_rows($result) > 0) {
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(255, 255, 255, 0.9);
+            background: rgb(255, 255, 255);
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 9999;
         }
 
-        /* Spinner Animation */
-        .spinner {
-            width: 50px;
-            height: 50px;
-            border: 5px solid #b19316;
-            border-top: 5px solid transparent;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
+        .loader-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
+        /* Logo fade animation */
+        .loader-logo {
+            width: 180px;
+            height: auto;
+            animation: fadePulse 1.5s infinite ease-in-out;
+        }
 
+        @keyframes fadePulse {
+            0% {
+                opacity: 0.4;
+            }
+            50% {
+                opacity: 1;
+            }
             100% {
-                transform: rotate(360deg);
+                opacity: 0.4;
             }
         }
         /* Full-Screen Loader */
@@ -84,9 +89,8 @@ if ($result && mysqli_num_rows($result) > 0) {
 
     <!-- Full-Screen Loader -->
     <div id="pageLoader">
-        <div class="loader-content" style="display: flex; flex-direction: column; align-items: center;">
-            <div class="spinner"></div>
-            <div style="margin-top: 10px; font-size: 16px;">Loading . . .</div>
+        <div class="loader-content">
+            <img src="assets/img/loader.png" alt="Loading..." class="loader-logo">
         </div>
     </div>
     <!-- /Full-Screen Loader -->
@@ -106,7 +110,7 @@ if ($result && mysqli_num_rows($result) > 0) {
                             <!-- Form -->
                             <form method="" class="needs-validation" novalidate="">
                                 <div class="form-group">
-                                    <a href="<?php echo $base_url ?>Web/Views/index.php" class="btn btn-primary btn-block">Go to Web <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
+                                    <a href="http://localhost:3000" class="btn btn-primary btn-block">Go to Web <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                                     <a href="<?php echo $base_url ?>AdminPortal/Views/index.php" class="btn btn-dark btn-block">Go to Admin Panel <i class="fa fa-arrow-right" aria-hidden="true"></i></a>
                                 </div>
                             </form>
