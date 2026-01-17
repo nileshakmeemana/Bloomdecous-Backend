@@ -336,7 +336,13 @@
                     responsive: true,
                     scales: {
                         x: {
-                            title: { display: true, text: 'Order Date' },
+                            title: { 
+                                display: true, 
+                                text: 'Order Date',
+                                font: {
+                                    weight: 'bold'
+                                } 
+                            },
                             ticks: {
                                 font: {
                                     size: 11
@@ -344,12 +350,17 @@
                             }
                         },
                         y: {
-                            title: { display: true, text: 'Order Count' },
-                            ticks: {
+                            title: { 
+                                display: true, 
+                                text: 'Order Count',
                                 font: {
-                                    size: 11
-                                },
-                                callback: function(value) {
+                                    weight: 'bold'
+                                } 
+                            },
+                            ticks: {
+                                font: { size: 12 },
+                                stepSize: 1, // ensures only integer steps
+                                callback: function(value, index, ticks) {
                                     // Format Y-axis numbers without decimals, with comma separator
                                     return Number(value).toLocaleString(undefined, { maximumFractionDigits: 0 });
                                 }
@@ -411,93 +422,106 @@
         }
 
         // --- Render Customer Addons Bubble Chart (1 bubble per Addon, integer Y-axis) ---
-function renderCustomerAddonsChart(data) {
-    const canvas = document.getElementById("customerAddonsChart");
-    const noDataText = document.getElementById("customerAddonsNoData");
+        function renderCustomerAddonsChart(data) {
+            const canvas = document.getElementById("customerAddonsChart");
+            const noDataText = document.getElementById("customerAddonsNoData");
 
-    if (!data.customerAddons || data.customerAddons.length === 0) {
-        canvas.style.display = "none";
-        noDataText.style.display = "block";
-        return;
-    }
-
-    canvas.style.display = "block";
-    noDataText.style.display = "none";
-
-    // Unique addons
-    const addons = [...new Set(data.customerAddons.map(c => c.addon_name))];
-
-    // Colors per addon
-    const colors = ['#b19316', '#000000', '#26af48', '#009efb', '#f39c12',
-                    '#8207DB', '#53EAFD', '#FFA2A2', '#162456', '#31C950'];
-
-    // Create dataset: 1 bubble per addon
-    const datasets = addons.map((addon, i) => {
-        // Sum orders for this addon across all customers
-        const totalOrders = data.customerAddons
-            .filter(c => c.addon_name === addon)
-            .reduce((sum, c) => sum + c.orders_count, 0);
-
-        // Get price for tooltip
-        const price = data.customerAddons.find(c => c.addon_name === addon)?.price || 0;
-
-        return {
-            label: addon,
-            data: [{
-                x: addon,
-                y: totalOrders,
-                r: Math.max(totalOrders * 5, 5), // bubble size proportional to total orders
-                price: price
-            }],
-            backgroundColor: hexToRgba(colors[i % colors.length], 0.65),
-            borderColor: hexToRgba(colors[i % colors.length], 1),
-            borderWidth: 1.5
-        };
-    });
-
-    new Chart(canvas, {
-        type: 'bubble',
-        data: {
-            datasets: datasets
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: function(context) {
-                            const c = context.raw;
-                            return [
-                                `Addon: ${c.x}`,
-                                `Total Orders: ${c.y.toLocaleString()}`, // integer format with commas
-                                `Price: $${c.price}`
-                            ];
-                        }
-                    }
-                }
-            },
-            scales: {
-                x: {
-                    type: 'category',
-                    labels: addons,
-                    title: { display: true, text: 'Addon Name' },
-                    ticks: { font: { size: 12 } }
-                },
-                y: {
-                    beginAtZero: true,
-                    title: { display: true, text: 'Total Order Count' },
-                    ticks: {
-                        font: { size: 12 },
-                        callback: function(value) {
-                            // Format Y-axis numbers without decimals, with comma separator
-                            return Number(value).toLocaleString(undefined, { maximumFractionDigits: 0 });
-                        }
-                    }
-                }
+            if (!data.customerAddons || data.customerAddons.length === 0) {
+                canvas.style.display = "none";
+                noDataText.style.display = "block";
+                return;
             }
+
+            canvas.style.display = "block";
+            noDataText.style.display = "none";
+
+            // Unique addons
+            const addons = [...new Set(data.customerAddons.map(c => c.addon_name))];
+
+            // Colors per addon
+            const colors = ['#b19316', '#000000', '#26af48', '#009efb', '#f39c12',
+                            '#8207DB', '#53EAFD', '#FFA2A2', '#162456', '#31C950'];
+
+            // Create dataset: 1 bubble per addon
+            const datasets = addons.map((addon, i) => {
+                // Sum orders for this addon across all customers
+                const totalOrders = data.customerAddons
+                    .filter(c => c.addon_name === addon)
+                    .reduce((sum, c) => sum + c.orders_count, 0);
+
+                // Get price for tooltip
+                const price = data.customerAddons.find(c => c.addon_name === addon)?.price || 0;
+
+                return {
+                    label: addon,
+                    data: [{
+                        x: addon,
+                        y: totalOrders,
+                        r: Math.max(totalOrders * 5, 5), // bubble size proportional to total orders
+                        price: price
+                    }],
+                    backgroundColor: hexToRgba(colors[i % colors.length], 0.65),
+                    borderColor: hexToRgba(colors[i % colors.length], 1),
+                    borderWidth: 1.5
+                };
+            });
+
+            new Chart(canvas, {
+                type: 'bubble',
+                data: {
+                    datasets: datasets
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    const c = context.raw;
+                                    return [
+                                        `Addon: ${c.x}`,
+                                        `Total Orders: ${c.y.toLocaleString()}`, // integer format with commas
+                                        `Price: $${c.price}`
+                                    ];
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        x: {
+                            type: 'category',
+                            labels: addons,
+                            title: { 
+                                display: true, 
+                                text: 'Addon Name',
+                                font: {
+                                    weight: 'bold'
+                                }
+                            },
+                            ticks: { font: { size: 12 } }
+                        },
+                        y: {
+                            beginAtZero: true,
+                            title: { 
+                                display: true, 
+                                text: 'Total Order Count',
+                                font: {
+                                    weight: 'bold'
+                                } 
+                            },
+                            ticks: {
+                                font: { size: 12 },
+                                stepSize: 1, // ensures only integer steps
+                                callback: function(value, index, ticks) {
+                                    // Format Y-axis numbers without decimals, with comma separator
+                                    return Number(value).toLocaleString(undefined, { maximumFractionDigits: 0 });
+                                }
+                            }
+                        }
+                    }
+                }
+            });
         }
-    });
-}
 
 
         // Convert HEX to RGBA for smooth opacity
