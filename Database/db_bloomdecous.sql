@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 06, 2026 at 10:21 AM
+-- Generation Time: Jan 19, 2026 at 04:58 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -172,7 +172,7 @@ CREATE TABLE `tbl_company_info` (
 --
 
 INSERT INTO `tbl_company_info` (`Id`, `Company_Name`, `Company_Address`, `Company_Email`, `Company_Tel1`, `Company_Tel2`, `Company_Tel3`) VALUES
-(1, 'Bloom Decous', 'New York, NY, United States, New York 10306', 'orbissolutionslk@gmail.com', '+1 929-421-6047', NULL, NULL);
+(1, 'BloomdecoUS', 'New York, NY, United States, New York 10306', 'orbissolutionslk@gmail.com', '+19294216047', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -187,6 +187,15 @@ CREATE TABLE `tbl_contact` (
   `Message` varchar(1000) NOT NULL,
   `Created_Date` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `tbl_contact`
+--
+
+INSERT INTO `tbl_contact` (`Id`, `Customer_Id`, `Subject`, `Message`, `Created_Date`) VALUES
+(17, 'CUS0001', 'Test', 'Test Message', '2026-01-19 19:16:05'),
+(18, 'CUS0001', 'werfsrfs', 'fsfsd', '2026-01-19 19:25:38'),
+(19, 'CUS0001', 'ada', 'ad', '2026-01-19 19:27:21');
 
 -- --------------------------------------------------------
 
@@ -208,12 +217,13 @@ CREATE TABLE `tbl_customers` (
 --
 
 INSERT INTO `tbl_customers` (`Id`, `Customer_Id`, `Customer_Name`, `Customer_Address`, `Customer_Contact`, `Customer_Email`) VALUES
-(16, 'CUS0001', 'Ridmal Akmeemana', '570/4, Erewwala, Pannipitiya', '0773697070', 'rajeewaakmeemana@gmail.com'),
+(16, 'CUS0001', 'Ridmal Akmeemana', '<p>570/4, Pathalwatte Rd, Erewwala, Pannipitiya</p>', '0773697070', 'rajeewaakmeemana@gmail.com'),
 (20, 'CUS0003', 'Dulan Malintha', 'Digana Rd, Kottawa', '0712658801', 'orbissolutionslk@gmail.com'),
-(25, 'CUS0005', 'Dulan Malintha', 'Digana Rd, Kottawa', '0773697071', 'dulan@gmail.com'),
+(25, 'CUS0005', 'Dulan Malintha', '<p>Digana Rd, Kottawa</p>', '0773697071', 'dulan@gmail.com'),
 (26, 'CUS0006', 'Nilesh Akmeemana', '570/4, Erewwala, Pannipitiya', '0787223917', 'nileshnirmalakmeemana@gmail.com'),
 (28, 'CUS0008', 'C.M.F Sriyana', 'Rotuphilla Akiriya', '0774569898', 'sriyana@gmail.com'),
-(29, 'CUS0009', 'Gayan Akmeemana', '570/4, Pathalwatte Rd, Erewwala, Pannipitiya', '0766061234', 'gayanakmeemana@yahoo.com');
+(29, 'CUS0009', 'Gayan Akmeemana', '570/4, Pathalwatte Rd, Erewwala, Pannipitiya', '0766061234', 'gayanakmeemana@yahoo.com'),
+(30, 'CUS0010', 'Bloomdecou', '170 Charles Street', '0773697073', 'bloomsdeco@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -239,12 +249,16 @@ CREATE TABLE `tbl_orders` (
 --
 
 INSERT INTO `tbl_orders` (`Id`, `Order_Id`, `Customer_Id`, `Package_Id`, `Event_Location`, `Event_DateTime`, `Package_Price`, `Status`, `Order_Date`, `Reject_Cancel_Reason`) VALUES
-(139, 'ORD0001', 'CUS0001', 'SHIMER', 'Test 01', '2026-01-05 00:17:00', 17.00, 'Completed', '2026-01-05 00:17:20', '<p><strong>Rejected</strong></p>'),
 (141, 'ORD0003', 'CUS0001', 'PAKG005', 'Test 03', '2026-01-06 00:19:00', 20.00, 'Completed', '2026-01-05 00:19:47', NULL),
-(142, 'ORD0004', 'CUS0001', 'PAKG002', 'dwdw', '2026-01-07 12:50:00', 15.00, 'Pending', '2026-01-06 12:50:19', NULL),
-(143, 'ORD0005', 'CUS0001', 'PAKG002', 'dsd', '2026-01-06 12:53:00', 15.00, 'Pending', '2026-01-06 12:53:14', NULL),
-(144, 'ORD0006', 'CUS0001', 'PAKG002', 'sdsd', '2026-01-06 13:56:00', 15.00, 'Pending', '2026-01-06 13:56:12', NULL),
-(145, 'ORD0007', 'CUS0001', 'PAKG002', '458845', '2026-01-06 13:58:00', 15.00, 'Pending', '2026-01-06 13:58:49', NULL);
+(142, 'ORD0004', 'CUS0003', 'PAKG002', 'Test 04', '2026-01-07 12:50:00', 15.00, 'Approved', '2026-01-06 12:50:19', NULL),
+(143, 'ORD0005', 'CUS0001', 'PAKG002', 'Test 05', '2026-01-06 12:53:00', 15.00, 'Pending', '2026-01-06 12:53:14', NULL),
+(144, 'ORD0006', 'CUS0006', 'PAKG002', 'Test 06', '2026-01-06 13:56:00', 15.00, 'Canceled', '2026-01-06 13:56:12', NULL),
+(145, 'ORD0007', 'CUS0001', 'PAKG002', 'Test 07', '2026-01-06 13:58:00', 15.00, 'Rejected', '2026-01-06 13:58:49', NULL),
+(146, 'ORD0008', 'CUS0001', 'PAKG002', 'Test 08', '2026-01-13 15:20:00', 15.00, 'Pending', '2026-01-13 15:20:14', NULL),
+(147, 'ORD0009', 'CUS0001', 'PAKG001', 'Colombo', '2026-01-16 07:30:00', 25.00, 'Pending', '2026-01-16 07:30:04', NULL),
+(148, 'ORD0010', 'CUS0001', 'PAKG005', 'Deandra Bolgoda', '2026-12-06 08:00:00', 20.00, 'Pending', '2026-01-19 09:17:17', NULL),
+(149, 'ORD0011', 'CUS0001', 'PAKG002', 'Test Location', '2026-01-20 20:06:00', 15.00, 'Pending', '2026-01-19 19:05:42', NULL),
+(150, 'ORD0012', 'CUS0010', 'SHIMER', 'Location', '2026-01-20 19:14:00', 17.00, 'Pending', '2026-01-19 19:15:01', NULL);
 
 -- --------------------------------------------------------
 
@@ -264,8 +278,6 @@ CREATE TABLE `tbl_order_addons` (
 --
 
 INSERT INTO `tbl_order_addons` (`Id`, `Order_Id`, `Addon_Id`, `Addon_Price`) VALUES
-(185, 'ORD0001', 1, 35.00),
-(186, 'ORD0001', 5, 100.00),
 (187, 'ORD0004', 1, 35.00),
 (188, 'ORD0004', 2, 12.00),
 (189, 'ORD0005', 2, 12.00),
@@ -273,7 +285,12 @@ INSERT INTO `tbl_order_addons` (`Id`, `Order_Id`, `Addon_Id`, `Addon_Price`) VAL
 (191, 'ORD0006', 1, 35.00),
 (192, 'ORD0006', 2, 12.00),
 (193, 'ORD0007', 1, 35.00),
-(194, 'ORD0007', 2, 12.00);
+(194, 'ORD0007', 2, 12.00),
+(195, 'ORD0008', 1, 35.00),
+(196, 'ORD0009', 2, 12.00),
+(197, 'ORD0010', 5, 100.00),
+(198, 'ORD0011', 1, 35.00),
+(199, 'ORD0011', 2, 12.00);
 
 -- --------------------------------------------------------
 
@@ -294,7 +311,7 @@ CREATE TABLE `tbl_package` (
 --
 
 INSERT INTO `tbl_package` (`Id`, `Package_Id`, `Package_Name`, `Package_Description`, `Price`) VALUES
-(1, 'PAKG001', 'Package 01', '<ul>\r\n<li>One backdrop with balloon garland (any three colors)</li>\r\n<li>Neon sign (Oh baby sign / birthday sign)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n</ul>', 25.00),
+(1, 'PAKG001', 'Package 01', '<ul>\r\n<li>One backdrop with balloon garland (any three colors)</li>\r\n<li>Neon sign (Oh baby sign / birthday sign)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n</ul>', 25.50),
 (2, 'PAKG002', 'Package 02', '<ul>\r\n<li>2 backdrops with balloon garland (any three colors)</li>\r\n<li>Neon sign (Oh baby sign / birthday sign)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n<li>Floor carpet</li>\r\n</ul>', 15.00),
 (8, 'PAKG003', 'Package 03', '<ul>\r\n<li>3 backdrops with balloon garland (any three colors)</li>\r\n<li>Neon sign (Oh baby sign / birthday sign)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n<li>Floor carpet</li>\r\n</ul>', 20.00),
 (9, 'SHIMER', 'Shimmer Wall', '<ul>\r\n<li>Shimmer wall with balloon garland (any three colors)</li>\r\n<li>Neon sign(Oh baby sign / birthday sign,Sweet sixteen)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n<li>White floor carpet</li>\r\n</ul>', 17.00),
@@ -321,7 +338,9 @@ CREATE TABLE `tbl_reviews` (
 
 INSERT INTO `tbl_reviews` (`Id`, `Customer_Id`, `Star_Rating`, `Message`, `Is_Approved`, `Created_Date`) VALUES
 (5, 'CUS0008', 4, 'Highly Recomended', 1, '2026-01-05 23:42:46'),
-(7, 'CUS0005', 3, 'Best', 1, '2026-01-06 14:04:44');
+(7, 'CUS0005', 3, 'Best', 1, '2026-01-06 14:04:44'),
+(8, 'CUS0001', 3, 'Good Service', 1, '2026-01-19 09:22:46'),
+(9, 'CUS0010', 1, 'Test', 1, '2026-01-19 19:13:46');
 
 -- --------------------------------------------------------
 
@@ -592,25 +611,25 @@ ALTER TABLE `tbl_company_info`
 -- AUTO_INCREMENT for table `tbl_contact`
 --
 ALTER TABLE `tbl_contact`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `tbl_customers`
 --
 ALTER TABLE `tbl_customers`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tbl_orders`
 --
 ALTER TABLE `tbl_orders`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=146;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_addons`
 --
 ALTER TABLE `tbl_order_addons`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=195;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
 
 --
 -- AUTO_INCREMENT for table `tbl_package`
@@ -622,7 +641,7 @@ ALTER TABLE `tbl_package`
 -- AUTO_INCREMENT for table `tbl_reviews`
 --
 ALTER TABLE `tbl_reviews`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`

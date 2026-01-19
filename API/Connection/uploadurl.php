@@ -1,4 +1,4 @@
 <?php
-    //$base_url="https://uat.orbislk.com/Orbis_Solutions_Inventory_System/";
-    $base_url="http://localhost/Bloomdecous-Backend/";
+    $base_url="https://uat.orbislk.com/Bloomdecous-Backend/";
+    // $base_url="http://localhost/Bloomdecous-Backend/";
 ?>

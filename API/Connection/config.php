@@ -1,6 +1,6 @@
 <?php
-	$conn = mysqli_connect("localhost", "root", "", "db_bloomdecous");
-	//$conn = mysqli_connect("localhost", "mdrizxbowc_Orbis", "HcL=2h5y%40t", "mdrizxbowc_db_orbis_solutions_inventory_system");
+	//$conn = mysqli_connect("localhost", "root", "", "db_bloomdecous");
+	$conn = mysqli_connect("localhost", "mdrizxbowc_bloomdeco", "I~mqQ26*~URT", "mdrizxbowc_db_bloomdecous");
 	
 	if(!$conn){
 		die("Error: Failed to connect to database!");
