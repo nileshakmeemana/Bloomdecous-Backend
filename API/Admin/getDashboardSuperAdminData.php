@@ -1,7 +1,6 @@
 <?php
 // getDashboardSuperAdminData.php
-
-require __DIR__ . '/../../API/Connection/config.php';
+require '../../API/Connection/config.php';
 header('Content-Type: application/json; charset=utf-8');
 
 session_start();
@@ -10,46 +9,28 @@ if (!isset($_SESSION['user'])) {
     exit;
 }
 
-/**
- * 1) Counts (Server-safe)
- */
-function getCount($conn, $table, $where = '') {
-    $sql = "SELECT COUNT(*) AS c FROM $table";
-    if ($where) {
-        $sql .= " WHERE $where";
-    }
-
-    $q = $conn->query($sql);
-    if ($q && $row = $q->fetch_assoc()) {
-        return (int)$row['c'];
-    }
+// 1) Counts (Safe Queries)
+function getCount($conn, $table) {
+    $q = $conn->query("SELECT COUNT(*) AS c FROM $table");
+    if ($q && $row = $q->fetch_assoc()) return (int)$row['c'];
     return 0;
 }
 
 $counts = [];
 
-$counts['Count_Pending_Orders'] =
-    getCount($conn, "tbl_orders", "Status = 'Pending'");
-
-$counts['Count_Approved_Orders'] =
-    getCount($conn, "tbl_orders", "Status = 'Approved'");
-
-$counts['Count_Completed_Orders'] =
-    getCount($conn, "tbl_orders", "Status = 'Completed'");
-
-$counts['Count_Canceled_Rejected_Orders'] =
-    getCount($conn, "tbl_orders", "Status IN ('Canceled','Rejected')");
+$counts['Count_Pending_Orders'] = getCount($conn, "tbl_orders WHERE Status = 'Pending'");
+$counts['Count_Approved_Orders'] = getCount($conn, "tbl_orders WHERE Status = 'Approved'");
+$counts['Count_Completed_Orders'] = getCount($conn, "tbl_orders WHERE Status = 'Completed'");
+$counts['Count_Canceled_Rejected_Orders'] = getCount($conn, "tbl_orders WHERE Status IN ('Canceled', 'Rejected')");
 
 $counts['Count_Customers'] = getCount($conn, "tbl_customers");
-$counts['Count_Users']     = getCount($conn, "tbl_user");
-$counts['Count_Roles']     = getCount($conn, "tbl_roles");
-$counts['Count_Packages']  = getCount($conn, "tbl_package");
-$counts['Count_Addon']     = getCount($conn, "tbl_addon");
-$counts['Count_Reviews']  = getCount($conn, "tbl_reviews");
+$counts['Count_Users'] = getCount($conn, "tbl_user");
+$counts['Count_Roles'] = getCount($conn, "tbl_roles");
+$counts['Count_Packages'] = getCount($conn, "tbl_package");
+$counts['Count_Addon'] = getCount($conn, "tbl_addon");
+$counts['Count_Reviews'] = getCount($conn, "tbl_reviews");
 
-/**
- * 2) Fast Moving Packages (STRICT MODE SAFE)
- */
+// 2) Fast Moving Packages (Top 10 by number of orders)
 $fastPackages = [];
 
 $q = $conn->query("
@@ -62,11 +43,7 @@ $q = $conn->query("
     FROM tbl_orders o
     INNER JOIN tbl_package p 
         ON o.Package_Id = p.Package_Id
-    GROUP BY 
-        p.Package_Id,
-        p.Package_Name,
-        p.Package_Description,
-        p.Price
+    GROUP BY p.Package_Id
     HAVING orders_count > 0
     ORDER BY orders_count DESC
     LIMIT 10
@@ -75,18 +52,16 @@ $q = $conn->query("
 if ($q) {
     while ($r = $q->fetch_assoc()) {
         $fastPackages[] = [
-            'package_id'   => $r['Package_Id'],
-            'package_name' => $r['Package_Name'],
-            'description'  => $r['Package_Description'],
-            'price'        => (float)$r['Price'],
-            'orders_count' => (int)$r['orders_count']
+            'package_id'    => $r['Package_Id'],
+            'package_name'  => $r['Package_Name'],
+            'description'   => $r['Package_Description'],
+            'price'         => (float)$r['Price'],
+            'orders_count'  => (int)$r['orders_count']
         ];
     }
 }
 
-/**
- * 3) Daily Orders (Last 30 Days)
- */
+// 3) Daily Orders of Last Month (Last 30 Days)
 $dailyOrders = [];
 
 $q = $conn->query("
@@ -99,18 +74,16 @@ $q = $conn->query("
     ORDER BY order_date ASC
 ");
 
-if ($q) {
-    while ($r = $q->fetch_assoc()) {
+if($q){
+    while($r = $q->fetch_assoc()){
         $dailyOrders[] = [
-            'date'         => $r['order_date'],
+            'date' => $r['order_date'],
             'total_orders' => (int)$r['total_orders']
         ];
     }
 }
 
-/**
- * 4) Customer-based Fast Moving Addons
- */
+// 4) Customer based Fast Moving Addons (Top 10 by number of orders)
 $customerAddons = [];
 
 $q = $conn->query("
@@ -152,9 +125,7 @@ if ($q) {
     }
 }
 
-/**
- * 5) Top 10 Customers (STRICT MODE SAFE)
- */
+// 5) Top 10 Customers (Highest Ordering)
 $topCustomers = [];
 
 $q = $conn->query("
@@ -168,13 +139,9 @@ $q = $conn->query("
     FROM tbl_customers c
     INNER JOIN tbl_orders o 
         ON o.Customer_Id = c.Customer_Id
-    GROUP BY 
-        c.Customer_Id,
-        c.Customer_Name,
-        c.Customer_Address,
-        c.Customer_Contact,
-        c.Customer_Email
-    ORDER BY order_count DESC
+    GROUP BY c.Customer_Id
+    ORDER BY 
+        order_count DESC
     LIMIT 10
 ");
 
@@ -191,16 +158,17 @@ if ($q) {
     }
 }
 
-/**
- * FINAL RESPONSE
- */
+
+// FINAL RESPONSE
 echo json_encode([
-    'success'        => 'true',
-    'pageData'       => $counts,
-    'fastPackages'   => $fastPackages,
-    'dailyOrders'    => $dailyOrders,
+    'success' => 'true',
+    'pageData' => $counts,
+    'fastPackages' => $fastPackages,
+    'dailyOrders' => $dailyOrders,
     'customerAddons' => $customerAddons,
-    'topCustomers'   => $topCustomers
+    'topCustomers' => $topCustomers
 ]);
 
 $conn->close();
+
+?>
