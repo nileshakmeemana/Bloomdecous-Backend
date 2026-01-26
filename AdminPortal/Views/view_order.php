@@ -285,7 +285,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 							</h5>
 						</div>
 
-						<div class="col-md-4 text-left mt-4">
+						<div class="col-md-4 text-left mt-4" style="display:none;">
 							<h5 class="page-title">
 								<h5 class="text-xs font-weight-bold mb-1">Package Price</h5>
 								<p class="mx-auto" id="packagePrice"></p>
@@ -343,7 +343,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 										<tr>
 											<th>Addon Name</th>
 											<th>Addon Description</th>
-											<th>Addon Price</th>
+											<!-- <th>Addon Price</th> -->
 										</tr>
 									</thead>
 
@@ -627,8 +627,8 @@ if (mysqli_num_rows($permission_query) > 0) {
 						// DATATABLE
 						$('.datatable').DataTable().destroy();
 						var table = $('.datatable').DataTable({
-							searching: true,
-							columnDefs: [{ targets: 2, className: 'text-right' }]
+							searching: true
+							// columnDefs: [{ targets: 2, className: 'text-right' }]
 						});
 						table.clear();
 

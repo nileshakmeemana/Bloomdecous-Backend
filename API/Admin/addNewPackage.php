@@ -7,7 +7,7 @@ $Package_Name = $_POST['Package_Name'];
 $Package_Description = $_POST['Package_Description'];
 $Price = $_POST['Price'];
 
-if (empty($Package_Id) || empty($Package_Name) || empty($Package_Description) || empty($Price)) {
+if (empty($Package_Id) || empty($Package_Name) || empty($Package_Description)) {
     $myObj = new \stdClass();
     $myObj->success = 'false';
     $myObj->error = 'empty';

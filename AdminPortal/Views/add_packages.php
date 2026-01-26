@@ -240,7 +240,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 												<th>Package ID</th>
 												<th>Package Name</th>
 												<th>Package Description</th>
-												<th>Package Price</th>
+												<!-- <th>Package Price</th> -->
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -295,14 +295,14 @@ if (mysqli_num_rows($permission_query) > 0) {
 									</div>
 								</div>
 
-								<div class="col-12">
+								<div class="col-12" style="display:none;">
 									<div class="form-group">
 										<label>Package Price</label><label class="text-danger">*</label>
 										<div class="input-group">
 											<div class="input-group-prepend">
 												<span class="input-group-text">$</span>
 											</div>
-											<input type="number" name="Price" class="form-control text-right currency-input" min="1" step="any" required>
+											<input type="number" name="Price" class="form-control text-right currency-input">
 										</div>
 									</div>
 								</div>
@@ -346,14 +346,14 @@ if (mysqli_num_rows($permission_query) > 0) {
 									</div>
 								</div>
 
-								<div class="col-12">
+								<div class="col-12" style="display:none;">
 									<div class="form-group">
 										<label>Package Price</label><label class="text-danger">*</label>
 										<div class="input-group">
 											<div class="input-group-prepend">
 												<span class="input-group-text">$</span>
 											</div>
-											<input type="number" name="Price" class="form-control text-right currency-input" min="1" step="any" required="">
+											<input type="number" name="Price" class="form-control text-right currency-input">
 										</div>
 									</div>
 								</div>
@@ -484,19 +484,19 @@ if (mysqli_num_rows($permission_query) > 0) {
 							searching: true,
 							columnDefs: [{
 									targets: 3,
-									className: 'text-right'
-								},
-								{
-									targets: 4,
 									className: 'text-center'
 								}
+								// {
+								// 	targets: 4,
+								// 	className: 'text-center'
+								// }
 							]
 						});
 
 						table.clear();
 
 						$.each(data, function(index, row) {
-							const formattedPrice = '$' + row.Price;
+							// const formattedPrice = '$' + row.Price;
 							const canEdit = <?php echo $has_access_to_edit_package ? 'true' : 'false'; ?>;
 							const canDelete = <?php echo $has_access_to_delete_package ? 'true' : 'false'; ?>;
 
@@ -530,7 +530,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 								row.Package_Id,
 								row.Package_Name,
 								row.Package_Description,
-								formattedPrice,
+								//formattedPrice,
 								actionButtons
 							]);
 						});

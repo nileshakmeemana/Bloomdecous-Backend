@@ -6,7 +6,7 @@ $Addon_Name = $_POST['Addon_Name'];
 $Addon_description = $_POST['Addon_description'];
 $Addon_Price = $_POST['Addon_Price'];
 
-if (empty($Addon_Name) || empty($Addon_description) || empty($Addon_Price)) {
+if (empty($Addon_Name) || empty($Addon_description)) {
     $myObj = new \stdClass();
     $myObj->success = 'false';
     $myObj->error = 'empty';

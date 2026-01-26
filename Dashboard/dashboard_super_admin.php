@@ -277,8 +277,8 @@
                                     return [
                                         `Code: ${p.package_id}`,
                                         `Package: ${p.package_name}`,
-                                        `Order Count: ${p.orders_count}`,
-                                        `Price: $${p.price}`
+                                        `Order Count: ${p.orders_count}`
+                                        // `Price: $${p.price}`
                                     ];
                                 }
                             }
@@ -480,8 +480,8 @@
                                     const c = context.raw;
                                     return [
                                         `Addon: ${c.x}`,
-                                        `Total Orders: ${c.y.toLocaleString()}`, // integer format with commas
-                                        `Price: $${c.price}`
+                                        `Total Orders: ${c.y.toLocaleString()}` // integer format with commas
+                                        // `Price: $${c.price}`
                                     ];
                                 }
                             }

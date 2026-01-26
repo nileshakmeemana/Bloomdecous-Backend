@@ -240,7 +240,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 												<th>#</th>
 												<th>Addon Name</th>
 												<th>Addon Description</th>
-												<th>Addon Price</th>
+												<!-- <th>Addon Price</th> -->
 												<th>Action</th>
 											</tr>
 										</thead>
@@ -288,14 +288,14 @@ if (mysqli_num_rows($permission_query) > 0) {
 									</div>
 								</div>
 
-								<div class="col-12">
+								<div class="col-12" style="display:none;">
 									<div class="form-group">
 										<label>Addon Price</label><label class="text-danger">*</label>
 										<div class="input-group">
 											<div class="input-group-prepend">
 												<span class="input-group-text">$</span>
 											</div>
-											<input type="number" name="Addon_Price" class="form-control text-right currency-input" min="1" step="any" required>
+											<input type="number" name="Addon_Price" class="form-control text-right currency-input">
 										</div>
 									</div>
 								</div>
@@ -339,14 +339,14 @@ if (mysqli_num_rows($permission_query) > 0) {
 									</div>
 								</div>
 
-								<div class="col-12">
+								<div class="col-12" style="display:none;">
 									<div class="form-group">
 										<label>Addon Price</label><label class="text-danger">*</label>
 										<div class="input-group">
 											<div class="input-group-prepend">
 												<span class="input-group-text">$</span>
 											</div>
-											<input type="number" name="Addon_Price" class="form-control text-right currency-input" min="1" step="any" required="">
+											<input type="number" name="Addon_Price" class="form-control text-right currency-input">
 										</div>
 									</div>
 								</div>
@@ -478,19 +478,19 @@ if (mysqli_num_rows($permission_query) > 0) {
 							columnDefs: [
 								{
 									targets: 3,
-									className: 'text-right'
-								},
-								{
-									targets: 4,
 									className: 'text-center'
 								}
+								// {
+								// 	targets: 4,
+								// 	className: 'text-center'
+								// }
 							]
 						});
 
 						table.clear();
 
 						$.each(data, function(index, row) {
-							const formattedAddonPrice = '$' + row.Addon_Price;
+							// const formattedAddonPrice = '$' + row.Addon_Price;
 							const canEdit = <?php echo $has_access_to_edit_addon ? 'true' : 'false'; ?>;
 							const canDelete = <?php echo $has_access_to_delete_addon ? 'true' : 'false'; ?>;
 
@@ -524,7 +524,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 								row.Id,
 								row.Addon_Name,
 								row.Addon_description,
-								formattedAddonPrice,
+								// formattedAddonPrice,
 								actionButtons
 							]);
 						});
