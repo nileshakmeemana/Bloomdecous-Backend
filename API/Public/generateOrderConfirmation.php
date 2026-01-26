@@ -5,6 +5,7 @@ header("Content-Type: application/pdf; charset=UTF-8");
 
 require_once '../../dompdf/autoload.inc.php';
 require_once '../../API/Connection/config.php';
+include '../../API/Connection/uploadurl.php';
 
 use Dompdf\Dompdf;
 use Dompdf\Options;
@@ -36,8 +37,8 @@ if (!empty($addonsArray)) {
     $addonHtml .= "<tr style='background:#f2f2f2;'><td colspan='2' style='font-weight:bold;'>Addon Details</td></tr>";
     foreach ($addonsArray as $addon) {
         $addonName = htmlspecialchars($addon['Addon_Name'] ?? '');
-        $addonPrice = isset($addon['Addon_Price']) ? "$" . number_format((float)$addon['Addon_Price'], 2) : "$0.00";
-        $addonHtml .= "<tr><td>{$addonName} ({$addonPrice})</td></tr>";
+        // $addonPrice = isset($addon['Addon_Price']) ? "$" . number_format((float)$addon['Addon_Price'], 2) : "$0.00";
+        $addonHtml .= "<tr><td>{$addonName}</td></tr>";
     }
     $addonHtml .= "</table>";
 }
@@ -63,7 +64,7 @@ $html = "
 
         <tr>
             <td style='padding-top:20px;text-align:center;'>
-                <img src='https://uat.orbislk.com/Bloomdecouse/Web/Views/assets/img/logo.png' alt='Logo'>
+                <img src='{$base_url}/Web/Views/assets/img/logo.png' alt='Logo'>
             </td>
         </tr>
 
@@ -83,7 +84,7 @@ $html = "
                         <td colspan='2' style='font-weight:bold;'>Order Details</td>
                     </tr>
                     <tr><td><b>Order ID</b></td><td>{$orderId}</td></tr>
-                    <tr><td><b>Package</b></td><td>{$packageName} ({$formattedPackagePrice})</td></tr>
+                    <tr><td><b>Package</b></td><td>{$packageName}</td></tr>
                     <tr><td><b>Event Location</b></td><td>{$eventLocation}</td></tr>
                     <tr><td><b>Event Date & Time</b></td><td>{$eventDateTime}</td></tr>
                 </table>

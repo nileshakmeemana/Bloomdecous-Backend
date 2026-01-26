@@ -97,7 +97,7 @@
                                 </thead>
                                 <tbody>
                                 <tr id="topCustomersNoData" style="display:none;">
-                                    <td colspan="5" class="text-center py-5 my-xl-3 text-muted">
+                                    <td colspan="6" class="text-center py-5 my-xl-3 text-muted">
                                         <strong>No Results</strong>
                                     </td>
                                 </tr>

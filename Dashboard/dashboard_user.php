@@ -97,7 +97,7 @@
                                 </thead>
                                 <tbody>
                                     <tr id="topCustomersNoData" style="display:none;">
-                                        <td colspan="5" class="text-center py-5 my-xl-3 text-muted">
+                                        <td colspan="6" class="text-center py-5 my-xl-3 text-muted">
                                             <strong>No Results</strong>
                                         </td>
                                     </tr>
@@ -278,7 +278,7 @@
                                         `Code: ${p.package_id}`,
                                         `Package: ${p.package_name}`,
                                         `Order Count: ${p.orders_count}`,
-                                        `Price: $${p.price}`
+                                        // `Price: $${p.price}`
                                     ];
                                 }
                             }
@@ -486,7 +486,7 @@
                                     return [
                                         `Addon: ${c.x}`,
                                         `Total Orders: ${c.y.toLocaleString()}`, // integer format with commas
-                                        `Price: $${c.price}`
+                                        // `Price: $${c.price}`
                                     ];
                                 }
                             }
