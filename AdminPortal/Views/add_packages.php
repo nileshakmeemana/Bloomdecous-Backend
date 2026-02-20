@@ -507,7 +507,7 @@ if (mysqli_num_rows($permission_query) > 0) {
                                 <a href="javascript:void(0);"
                                 class="btn btn-sm bg-primary-light ms-1 edit-package-btn"
                                 data-id="${row.Package_Id}"
-                                data-name="${row.Package_Name}"
+								data-name="${encodeURIComponent(row.Package_Name)}"
                                 data-description="${encodeURIComponent(row.Package_Description)}"
                                 data-price="${row.Price}">
                                     <i class="fe fe-pencil"></i> Edit
@@ -519,7 +519,7 @@ if (mysqli_num_rows($permission_query) > 0) {
                                 <a href="javascript:void(0);"
                                 class="btn btn-sm bg-danger-light ms-1 delete-package-btn"
                                 data-id="${row.Package_Id}"
-                                data-name="${row.Package_Name}">
+                                data-name="${encodeURIComponent(row.Package_Name)}">
                                     <i class="fe fe-trash"></i> Delete
                                 </a>`;
 							}
@@ -625,7 +625,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 			// EDIT PACKAGE
 			$(document).on('click', '.edit-package-btn', function() {
 				const packageId = $(this).data('id');
-				const packageName = $(this).data('name');
+				const packageName = decodeURIComponent($(this).data('name') || '');
 				const packageDesc = decodeURIComponent($(this).data('description') || '');
 				const packagePrice = $(this).data('price');
 
@@ -685,7 +685,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 			// DELETE PACKAGE
 			$(document).on('click', '.delete-package-btn', function() {
 				const packageId = $(this).data('id');
-				const packageName = $(this).data('name');
+				const packageName = decodeURIComponent($(this).data('name') || '');
 
 				$('#Delete_Package input[name="Package_Id"]').val(packageId);
 				$('#deletePackageName').text(packageName);

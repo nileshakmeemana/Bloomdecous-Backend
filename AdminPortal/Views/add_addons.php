@@ -97,45 +97,81 @@ if (mysqli_num_rows($permission_query) > 0) {
 			overflow-y: auto;
 		}
 
+		.image-drop-zone {
+			position: relative;
+			border: 2px dashed #b19316;
+			border-radius: 10px;
+			height: 180px;
+			cursor: pointer;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			text-align: center;
+		}
+
+		.image-drop-zone .placeholder {
+			color: #777;
+		}
+
+		.image-drop-zone i {
+			font-size: 36px;
+			color: #b19316;
+		}
+
+		.image-drop-zone span {
+			color: #b19316;
+			font-weight: 600;
+		}
+
+		.image-drop-zone img {
+			max-height: 100%;
+			max-width: 100%;
+			object-fit: cover;
+			border-radius: 8px;
+		}
+
 		/* Full-Screen Loader */
-        #pageLoader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgb(255, 255, 255);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
+		#pageLoader {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgb(255, 255, 255);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 9999;
+		}
 
-        .loader-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+		.loader-content {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
 
-        /* Logo fade animation */
-        .loader-logo {
-            width: 180px;
-            height: auto;
-            animation: fadePulse 1.5s infinite ease-in-out;
-        }
+		/* Logo fade animation */
+		.loader-logo {
+			width: 180px;
+			height: auto;
+			animation: fadePulse 1.5s infinite ease-in-out;
+		}
 
-        @keyframes fadePulse {
-            0% {
-                opacity: 0.4;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0.4;
-            }
-        }
-        /* Full-Screen Loader */
+		@keyframes fadePulse {
+			0% {
+				opacity: 0.4;
+			}
+
+			50% {
+				opacity: 1;
+			}
+
+			100% {
+				opacity: 0.4;
+			}
+		}
+
+		/* Full-Screen Loader */
 	</style>
 
 </head>
@@ -143,12 +179,12 @@ if (mysqli_num_rows($permission_query) > 0) {
 <body>
 
 	<!-- Full-Screen Loader -->
-    <div id="pageLoader">
-        <div class="loader-content">
-            <img src="assets/img/loader.png" alt="Loading..." class="loader-logo">
-        </div>
-    </div>
-    <!-- /Full-Screen Loader -->
+	<div id="pageLoader">
+		<div class="loader-content">
+			<img src="assets/img/loader.png" alt="Loading..." class="loader-logo">
+		</div>
+	</div>
+	<!-- /Full-Screen Loader -->
 
 	<!-- Main Wrapper -->
 	<div class="main-wrapper">
@@ -280,9 +316,29 @@ if (mysqli_num_rows($permission_query) > 0) {
 									</div>
 								</div>
 
+								<div class="col-12 col-sm-12">
+									<div class="form-group">
+										<label>Addon Image</label><label class="text-danger">*</label>
+
+										<!-- Drag & Drop Area -->
+										<div id="imageDropZone" class="image-drop-zone">
+											<img id="imagePreview" src="" alt="Preview" style="display:none;">
+											<div class="placeholder">
+												<i class="fa fa-cloud-upload"></i>
+												<p>Drag & Drop image here<br>or <span>Click to Upload</span></p>
+											</div>
+											<input type="file" name="Img" id="profileImageInput" accept="image/png, image/jpeg" hidden>
+										</div>
+
+										<label class="text-muted" style="font-size: 0.85rem;">
+											Image must be <b>JPG, JPEG, PNG</b>
+										</label>
+									</div>
+								</div>
+
 								<div class="col-12">
 									<div class="form-group">
-										<label>Package Description</label><label class="text-danger">*</label>
+										<label>Addon Description</label><label class="text-danger">*</label>
 										<textarea id="add-text" name="Addon_description" class="form-control" rows="8" placeholder="Enter Description . . ."></textarea>
 										<p id="count-result">0/250</p>
 									</div>
@@ -331,9 +387,30 @@ if (mysqli_num_rows($permission_query) > 0) {
 									</div>
 								</div>
 
+								<div class="col-12 col-sm-12">
+									<div class="form-group">
+										<label>Addon Image</label><label class="text-danger">*</label>
+
+										<!-- Drag & Drop Area -->
+										<div id="editImageDropZone" class="image-drop-zone">
+											<img id="editImagePreview" src="" alt="Preview" style="display:none;">
+											<div class="placeholder">
+												<i class="fa fa-cloud-upload"></i>
+												<p>Drag & Drop image here<br>or <span>Click to Upload</span></p>
+											</div>
+											<input type="file" name="Img" id="editProfileImageInput" accept="image/png, image/jpeg" hidden>
+											<input type="hidden" name="existing_img" id="existing_img">
+										</div>
+
+										<label class="text-muted" style="font-size: 0.85rem;">
+											Image must be <b>JPG, JPEG, PNG</b>
+										</label>
+									</div>
+								</div>
+
 								<div class="col-12">
 									<div class="form-group">
-										<label>Addon_description</label><label class="text-danger">*</label>
+										<label>Addon Description</label><label class="text-danger">*</label>
 										<textarea id="edit-text" name="Addon_description" class="form-control" rows="8" placeholder="Enter Description . . ."></textarea>
 										<p id="count-result">0/250</p>
 									</div>
@@ -475,8 +552,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 
 						var table = $('.datatable').DataTable({
 							searching: true,
-							columnDefs: [
-								{
+							columnDefs: [{
 									targets: 3,
 									className: 'text-center'
 								}
@@ -498,14 +574,15 @@ if (mysqli_num_rows($permission_query) > 0) {
 
 							if (canEdit) {
 								actionButtons += `
-                                <a href="javascript:void(0);"
-                                class="btn btn-sm bg-primary-light ms-1 edit-addon-btn"
-                                data-id="${row.Id}"
-                                data-name="${row.Addon_Name}"
-                                data-description="${encodeURIComponent(row.Addon_description)}"
-                                data-price="${row.Addon_Price}">
-                                    <i class="fe fe-pencil"></i> Edit
-                                </a>`;
+									<a href="javascript:void(0);"
+									class="btn btn-sm bg-primary-light ms-1 edit-addon-btn"
+									data-id="${row.Id}"
+									data-name="${encodeURIComponent(row.Addon_Name)}"
+									data-img="${encodeURIComponent(row.Img)}"
+									data-description="${encodeURIComponent(row.Addon_description)}"
+									data-price="${row.Addon_Price}">
+										<i class="fe fe-pencil"></i> Edit
+									</a>`;
 							}
 
 							if (canDelete) {
@@ -513,7 +590,7 @@ if (mysqli_num_rows($permission_query) > 0) {
                                 <a href="javascript:void(0);"
                                 class="btn btn-sm bg-danger-light ms-1 delete-addon-btn"
                                 data-id="${row.Id}"
-                                data-name="${row.Addon_Name}">
+                                data-name="${encodeURIComponent(row.Addon_Name)}">
                                     <i class="fe fe-trash"></i> Delete
                                 </a>`;
 							}
@@ -522,7 +599,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 
 							table.row.add([
 								row.Id,
-								row.Addon_Name,
+								'<a href="' + row.Img + '" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="' + row.Img + '" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;"></a>' + row.Addon_Name,
 								row.Addon_description,
 								// formattedAddonPrice,
 								actionButtons
@@ -577,9 +654,63 @@ if (mysqli_num_rows($permission_query) > 0) {
 			initTinyMCE('#add-text', '#Add_Addon #count-result');
 			initTinyMCE('#edit-text', '#Update_Addon #count-result');
 
+			/* ===============================
+			DRAG & DROP + IMAGE PREVIEW
+			================================= */
+
+			const dropZone = document.getElementById('imageDropZone');
+			const fileInput = document.getElementById('profileImageInput');
+			const preview = document.getElementById('imagePreview');
+
+			// Click to open file selector
+			dropZone.addEventListener('click', () => fileInput.click());
+
+			// Drag over
+			dropZone.addEventListener('dragover', (e) => {
+				e.preventDefault();
+				dropZone.classList.add('dragover');
+			});
+
+			// Drag leave
+			dropZone.addEventListener('dragleave', () => {
+				dropZone.classList.remove('dragover');
+			});
+
+			// Drop file
+			dropZone.addEventListener('drop', (e) => {
+				e.preventDefault();
+				dropZone.classList.remove('dragover');
+
+				if (e.dataTransfer.files.length) {
+					fileInput.files = e.dataTransfer.files;
+					previewImage(fileInput.files[0]);
+				}
+			});
+
+			// Input change (click upload)
+			fileInput.addEventListener('change', () => {
+				if (fileInput.files.length) {
+					previewImage(fileInput.files[0]);
+				}
+			});
+
+			// Preview function
+			function previewImage(file) {
+				if (!file.type.startsWith('image/')) return;
+
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					preview.src = e.target.result;
+					preview.style.display = 'block';
+					dropZone.querySelector('.placeholder').style.display = 'none';
+				};
+				reader.readAsDataURL(file);
+			}
+
 			// ADD ADDON
 			$('#addAddonForm').submit(function(e) {
 				e.preventDefault();
+
 				let descriptionText = tinymce.get('add-text').getContent({
 					format: 'text'
 				}).trim();
@@ -591,13 +722,25 @@ if (mysqli_num_rows($permission_query) > 0) {
 					return false;
 				}
 
+				// Check if an image is selected
+				const fileInput = $('#profileImageInput')[0];
+				if (!fileInput.files.length) {
+					$('#Add_Addon').modal('hide');
+					$('#EmptyAddonImage').modal('show'); // Show modal for missing image
+					return false;
+				}
+
 				tinymce.triggerSave();
 				$('#pageLoader').show();
+
+				var formData = new FormData(this);
 
 				$.ajax({
 					type: 'POST',
 					url: '../../API/Admin/addNewAddon.php',
-					data: $(this).serialize(),
+					data: formData,
+					contentType: false,
+					processData: false,
 					success: function(response) {
 						if (typeof response === 'string') response = JSON.parse(response);
 						showSaveAlerts(response);
@@ -616,10 +759,61 @@ if (mysqli_num_rows($permission_query) > 0) {
 				window.location.href = 'add_addons.php';
 			});
 
+			// Edit modal drag & drop
+			const editDropZone = document.getElementById('editImageDropZone');
+			const editFileInput = document.getElementById('editProfileImageInput');
+			const editPreview = document.getElementById('editImagePreview');
+
+			// Click to open file selector
+			editDropZone.addEventListener('click', () => editFileInput.click());
+
+			// Drag over
+			editDropZone.addEventListener('dragover', (e) => {
+				e.preventDefault();
+				editDropZone.classList.add('dragover');
+			});
+
+			// Drag leave
+			editDropZone.addEventListener('dragleave', () => {
+				editDropZone.classList.remove('dragover');
+			});
+
+			// Drop file
+			editDropZone.addEventListener('drop', (e) => {
+				e.preventDefault();
+				editDropZone.classList.remove('dragover');
+
+				if (e.dataTransfer.files.length) {
+					editFileInput.files = e.dataTransfer.files;
+					previewEditImage(editFileInput.files[0]);
+				}
+			});
+
+			// Input change (click upload)
+			editFileInput.addEventListener('change', () => {
+				if (editFileInput.files.length) {
+					previewEditImage(editFileInput.files[0]);
+				}
+			});
+
+			// Preview function
+			function previewEditImage(file) {
+				if (!file.type.startsWith('image/')) return;
+
+				const reader = new FileReader();
+				reader.onload = function(e) {
+					editPreview.src = e.target.result;
+					editPreview.style.display = 'block';
+					editDropZone.querySelector('.placeholder').style.display = 'none';
+				};
+				reader.readAsDataURL(file);
+			}
+
 			// EDIT ADDON
 			$(document).on('click', '.edit-addon-btn', function() {
 				const Id = $(this).data('id');
-				const addonName = $(this).data('name');
+				const addonName = decodeURIComponent($(this).data('name') || '');
+				const addonImg = decodeURIComponent($(this).data('img') || '');
 				const addonDesc = decodeURIComponent($(this).data('description') || '');
 				const addonPrice = $(this).data('price');
 
@@ -633,14 +827,26 @@ if (mysqli_num_rows($permission_query) > 0) {
 
 				const textLength = addonDesc.replace(/<[^>]*>/g, '').length;
 				$('#Update_Addon #count-result').text(`${textLength} / 250`);
+
+				// Show existing image in Edit modal
+				$('#existing_img').val(addonImg || '');
+				if (addonImg) {
+					$('#editImagePreview').attr('src', addonImg).show();
+					$('#editImageDropZone .placeholder').hide();
+				} else {
+					$('#editImagePreview').hide();
+					$('#editImageDropZone .placeholder').show();
+				}
+
+				// Clear file input
+				$('#editProfileImageInput').val('');
 				$('#Update_Addon').modal('show');
 			});
 
 			$('#updateAddonForm').submit(function(e) {
 				e.preventDefault();
-				let descriptionText = tinymce.get('edit-text').getContent({
-					format: 'text'
-				}).trim();
+
+				let descriptionText = tinymce.get('edit-text').getContent({ format: 'text' }).trim();
 
 				if (!descriptionText.length) {
 					$('#Update_Addon').modal('hide');
@@ -649,13 +855,36 @@ if (mysqli_num_rows($permission_query) > 0) {
 					return false;
 				}
 
+				// Check for image: either existing image or a new file selected
+				const fileInput = $('#editProfileImageInput')[0];
+				const existingImg = $('#existing_img').val().trim();
+
+				if (!existingImg && !fileInput.files.length) {
+					$('#Update_Addon').modal('hide');
+					$('#EmptyAddonImage').modal('show'); // Show modal for missing image
+					return false;
+				}
+
+				// Check if an image is selected
+				// const fileInput = $('#editProfileImageInput')[0];
+				// if (!fileInput.files.length) {
+				// 	$('#Update_Addon').modal('hide');
+				// 	$('#EmptyAddonImage').modal('show'); // Show modal for missing image
+				// 	return false;
+				// }
+
 				tinymce.triggerSave();
 				$('#pageLoader').show();
+
+				// Use FormData to include file + other fields
+				var formData = new FormData(this);
 
 				$.ajax({
 					type: 'POST',
 					url: '../../API/Admin/updateAddon.php',
-					data: $(this).serialize(),
+					data: formData,
+					contentType: false,
+					processData: false,
 					success: function(response) {
 						if (typeof response === 'string') response = JSON.parse(response);
 						showUpdateAlerts(response);
@@ -679,7 +908,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 			// DELETE ADDON
 			$(document).on('click', '.delete-addon-btn', function() {
 				const Id = $(this).data('id');
-				const addonName = $(this).data('name');
+				const addonName = decodeURIComponent($(this).data('name') || '');
 
 				$('#Delete_Addon input[name="Id"]').val(Id);
 				$('#deleteAddonName').text(addonName);

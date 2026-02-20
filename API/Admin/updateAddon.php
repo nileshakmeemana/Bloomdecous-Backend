@@ -2,45 +2,67 @@
 
 require '../../API/Connection/BackEndPermission.php';
 
+// Fetch POST data
 $Id = $_POST['Id'];
 $Addon_Name = $_POST['Addon_Name'];
 $Addon_description = $_POST['Addon_description'];
 $Addon_Price = $_POST['Addon_Price'];
+$existing_img = $_POST['existing_img'] ?? ''; // Hidden field from the form
 
+$response = new stdClass();
+
+// Basic validation
 if (empty($Id) || empty($Addon_Name) || empty($Addon_description)) {
-    $myObj = new \stdClass();
-    $myObj->success = 'false';
-    $myObj->error = 'empty';
-    $myJSON = json_encode($myObj);
-    echo $myJSON;
-} 
-else {
-    
-    // Check if Id exists in the database
-    $checkQuery = "SELECT * FROM `tbl_addon` WHERE `tbl_addon`.`Id` = '$Id';";
-    $result = mysqli_query($conn, $checkQuery);
+    $response->success = 'false';
+    $response->error = 'empty';
+    echo json_encode($response);
+    exit;
+}
 
-    if (mysqli_num_rows($result) > 0) {
-        // If Id exists, perform the update
-        $updateQuery = "UPDATE `tbl_addon` SET `Addon_Name` = '$Addon_Name', `Addon_description` = '$Addon_description', `Addon_Price` = '$Addon_Price' WHERE `tbl_addon`.`Id` = '$Id';";
-        if (mysqli_query($conn, $updateQuery)) {
-            $myObj = new \stdClass();
-            $myObj->success = 'true';
-            $myJSON = json_encode($myObj);
-            echo $myJSON;
-        } else {
-            $myObj = new \stdClass();
-            $myObj->success = 'false';
-            $myJSON = json_encode($myObj);
-            echo $myJSON;
+// Check if Id exists
+$checkQuery = "SELECT * FROM `tbl_addon` WHERE `Id` = '$Id'";
+$result = mysqli_query($conn, $checkQuery);
+
+if (mysqli_num_rows($result) === 0) {
+    $response->success = 'false';
+    $response->error = 'no_addon_data';
+    echo json_encode($response);
+    exit;
+}
+
+if (isset($_FILES['Img']) && $_FILES['Img']['error'] === UPLOAD_ERR_OK) {
+    $allowedTypes = ['image/jpeg','image/jpg','image/png'];
+    if (in_array($_FILES['Img']['type'], $allowedTypes)) {
+        $fileExtension = pathinfo($_FILES['Img']['name'], PATHINFO_EXTENSION);
+        $uploadDir = '../../Images/Addons/';
+        $newFileName = $Id . '.' . $fileExtension;
+        $fullPath = $uploadDir . $newFileName;
+
+        if (move_uploaded_file($_FILES['Img']['tmp_name'], $fullPath)) {
+            $imgPath = 'Images/Addons/' . $newFileName . '?v=' . time(); // relative path
         }
-    } else {
-        // If Id doesn't exist, send appropriate response
-        $myObj = new \stdClass();
-        $myObj->success = 'false';
-        $myObj->error = 'no_addon_data';
-        $myJSON = json_encode($myObj);
-        echo $myJSON;
+    }
+} else {
+    // Keep existing image relative
+    if (!empty($existing_img)) {
+        $existing_img = preg_replace('#.*/(Images/.*)$#i', '$1', $existing_img);
+        $imgPath = $existing_img;
     }
 }
+
+// Update the database
+$updateQuery = "UPDATE `tbl_addon` 
+                SET `Addon_Name` = '$Addon_Name', 
+                    `Addon_description` = '$Addon_description', 
+                    `Addon_Price` = '$Addon_Price', 
+                    `Img` = '$imgPath' 
+                WHERE `Id` = '$Id'";
+
+if (mysqli_query($conn, $updateQuery)) {
+    $response->success = 'true';
+} else {
+    $response->success = 'false';
+}
+
+echo json_encode($response);
 ?>

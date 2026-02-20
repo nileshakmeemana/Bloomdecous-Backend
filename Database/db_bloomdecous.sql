@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jan 19, 2026 at 04:58 PM
+-- Generation Time: Feb 20, 2026 at 04:29 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -30,19 +30,20 @@ SET time_zone = "+00:00";
 CREATE TABLE `tbl_addon` (
   `Id` int(11) NOT NULL,
   `Addon_Name` varchar(50) NOT NULL,
+  `Img` varchar(150) NOT NULL,
   `Addon_description` varchar(250) NOT NULL,
-  `Addon_Price` float(10,2) NOT NULL
+  `Addon_Price` float(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `tbl_addon`
 --
 
-INSERT INTO `tbl_addon` (`Id`, `Addon_Name`, `Addon_description`, `Addon_Price`) VALUES
-(1, 'Balloon Centerpieces', '<p>balloon centerpieces $35up</p>', 35.00),
-(2, 'Flower Centerpieces', '<p>flower centerpieces $40 up</p>', 12.00),
-(4, 'Welcome Sign size 18”by 24”', '<p>Welcome Sign size 18&rdquo;by 24&rdquo; $60 and up</p>', 60.00),
-(5, 'Love Seat', '<p>Love Seat $100</p>', 100.00);
+INSERT INTO `tbl_addon` (`Id`, `Addon_Name`, `Img`, `Addon_description`, `Addon_Price`) VALUES
+(9, 'Balloon Centerpieces', 'Images/Addons/9.jpg?v=1771587685', '<p>balloon centerpieces $20 Up</p>', 0.00),
+(10, 'Flower Centerpieces', 'Images/Addons/10.jpg?v=1771588754', '<p>flower centerpieces $35 Up</p>', 0.00),
+(12, 'Love Seat', 'Images/Addons/12.jpg?v=1771588804', '<p>Love Seat $100 Up</p>', 0.00),
+(13, 'Welcome Sign size 18\" by 24\"', 'Images/Addons/13.jpg?v=1771601230', '<p>Welcome Sign size 18\" by 24\" $60 and Up</p>', 0.00);
 
 -- --------------------------------------------------------
 
@@ -149,7 +150,63 @@ INSERT INTO `tbl_backend_permissions` (`Permission_Id`, `Role`, `Backend_Id`) VA
 (1231, 'Super Admin', 200),
 (1235, 'Super Admin', 204),
 (1236, 'Super Admin', 202),
-(1237, 'Super Admin', 203);
+(1237, 'Super Admin', 203),
+(1238, 'System User', 101),
+(1239, 'System User', 105),
+(1240, 'System User', 110),
+(1241, 'System User', 121),
+(1242, 'System User', 116),
+(1247, 'System User', 132),
+(1248, 'System User', 135),
+(1249, 'System User', 133),
+(1250, 'System User', 134),
+(1251, 'System User', 189),
+(1252, 'System User', 190),
+(1253, 'System User', 192),
+(1254, 'System User', 188),
+(1255, 'System User', 191),
+(1256, 'System User', 194),
+(1257, 'System User', 197),
+(1258, 'System User', 195),
+(1259, 'System User', 196),
+(1260, 'System User', 201),
+(1261, 'System User', 198),
+(1262, 'System User', 199),
+(1263, 'System User', 200),
+(1264, 'System User', 204),
+(1265, 'System User', 202),
+(1266, 'System User', 203),
+(1269, 'System User', 172),
+(1270, 'System User', 173),
+(1271, 'System User', 174),
+(1272, 'System User', 175),
+(1273, 'Guest User', 101),
+(1274, 'Guest User', 105),
+(1275, 'Guest User', 110),
+(1276, 'Guest User', 121),
+(1277, 'Guest User', 116),
+(1282, 'Guest User', 132),
+(1283, 'Guest User', 133),
+(1284, 'Guest User', 172),
+(1285, 'Guest User', 173),
+(1286, 'Guest User', 174),
+(1287, 'Guest User', 175),
+(1288, 'Guest User', 189),
+(1289, 'Guest User', 190),
+(1290, 'Guest User', 192),
+(1291, 'Guest User', 188),
+(1292, 'Guest User', 191),
+(1293, 'Guest User', 194),
+(1294, 'Guest User', 197),
+(1295, 'Guest User', 195),
+(1296, 'Guest User', 196),
+(1297, 'Guest User', 201),
+(1298, 'Guest User', 198),
+(1299, 'Guest User', 199),
+(1300, 'Guest User', 200),
+(1301, 'Guest User', 204),
+(1302, 'Guest User', 202),
+(1303, 'Guest User', 203);
 
 -- --------------------------------------------------------
 
@@ -193,9 +250,11 @@ CREATE TABLE `tbl_contact` (
 --
 
 INSERT INTO `tbl_contact` (`Id`, `Customer_Id`, `Subject`, `Message`, `Created_Date`) VALUES
-(17, 'CUS0001', 'Test', 'Test Message', '2026-01-19 19:16:05'),
-(18, 'CUS0001', 'werfsrfs', 'fsfsd', '2026-01-19 19:25:38'),
-(19, 'CUS0001', 'ada', 'ad', '2026-01-19 19:27:21');
+(20, 'CUS0001', 'Requesting An Appointment', 'For Testing', '2026-01-19 20:30:47'),
+(21, 'CUS0007', 'first birthday', 'cmldvlsjs;sm;smvgsgjsgsvlm;msmg', '2026-01-25 13:50:07'),
+(22, 'CUS0007', 'jkjjljljl', 'nlhhlnln', '2026-01-25 13:52:29'),
+(23, 'CUS0001', 'Test', 'Details', '2026-01-26 13:20:18'),
+(24, 'CUS0001', 'Price List Request', 'Give me Package Price List', '2026-01-28 08:29:10');
 
 -- --------------------------------------------------------
 
@@ -218,12 +277,10 @@ CREATE TABLE `tbl_customers` (
 
 INSERT INTO `tbl_customers` (`Id`, `Customer_Id`, `Customer_Name`, `Customer_Address`, `Customer_Contact`, `Customer_Email`) VALUES
 (16, 'CUS0001', 'Ridmal Akmeemana', '<p>570/4, Pathalwatte Rd, Erewwala, Pannipitiya</p>', '0773697070', 'rajeewaakmeemana@gmail.com'),
-(20, 'CUS0003', 'Dulan Malintha', 'Digana Rd, Kottawa', '0712658801', 'orbissolutionslk@gmail.com'),
-(25, 'CUS0005', 'Dulan Malintha', '<p>Digana Rd, Kottawa</p>', '0773697071', 'dulan@gmail.com'),
 (26, 'CUS0006', 'Nilesh Akmeemana', '570/4, Erewwala, Pannipitiya', '0787223917', 'nileshnirmalakmeemana@gmail.com'),
-(28, 'CUS0008', 'C.M.F Sriyana', 'Rotuphilla Akiriya', '0774569898', 'sriyana@gmail.com'),
-(29, 'CUS0009', 'Gayan Akmeemana', '570/4, Pathalwatte Rd, Erewwala, Pannipitiya', '0766061234', 'gayanakmeemana@yahoo.com'),
-(30, 'CUS0010', 'Bloomdecou', '170 Charles Street', '0773697073', 'bloomsdeco@gmail.com');
+(31, 'CUS0007', 'dilani', '145 bishop st', '9294216043', 'happycakesrandi@gmai.com'),
+(33, 'CUS0009', 'Randi', '145 bishop St', '+19294216043', 'happycakesrandi@gmail.com'),
+(34, 'CUS0010', 'Piumi', '<p>bronze</p>', 'Jayathilaka', 'piumirasanjalijayathilaka@gmail.com');
 
 -- --------------------------------------------------------
 
@@ -238,7 +295,7 @@ CREATE TABLE `tbl_orders` (
   `Package_Id` varchar(11) NOT NULL,
   `Event_Location` varchar(150) NOT NULL,
   `Event_DateTime` datetime NOT NULL,
-  `Package_Price` float(10,2) NOT NULL,
+  `Package_Price` float(10,2) DEFAULT NULL,
   `Status` enum('Pending','Approved','Completed','Rejected','Canceled') NOT NULL,
   `Order_Date` datetime NOT NULL,
   `Reject_Cancel_Reason` varchar(250) DEFAULT NULL
@@ -249,16 +306,9 @@ CREATE TABLE `tbl_orders` (
 --
 
 INSERT INTO `tbl_orders` (`Id`, `Order_Id`, `Customer_Id`, `Package_Id`, `Event_Location`, `Event_DateTime`, `Package_Price`, `Status`, `Order_Date`, `Reject_Cancel_Reason`) VALUES
-(141, 'ORD0003', 'CUS0001', 'PAKG005', 'Test 03', '2026-01-06 00:19:00', 20.00, 'Completed', '2026-01-05 00:19:47', NULL),
-(142, 'ORD0004', 'CUS0003', 'PAKG002', 'Test 04', '2026-01-07 12:50:00', 15.00, 'Approved', '2026-01-06 12:50:19', NULL),
-(143, 'ORD0005', 'CUS0001', 'PAKG002', 'Test 05', '2026-01-06 12:53:00', 15.00, 'Pending', '2026-01-06 12:53:14', NULL),
-(144, 'ORD0006', 'CUS0006', 'PAKG002', 'Test 06', '2026-01-06 13:56:00', 15.00, 'Canceled', '2026-01-06 13:56:12', NULL),
-(145, 'ORD0007', 'CUS0001', 'PAKG002', 'Test 07', '2026-01-06 13:58:00', 15.00, 'Rejected', '2026-01-06 13:58:49', NULL),
-(146, 'ORD0008', 'CUS0001', 'PAKG002', 'Test 08', '2026-01-13 15:20:00', 15.00, 'Pending', '2026-01-13 15:20:14', NULL),
-(147, 'ORD0009', 'CUS0001', 'PAKG001', 'Colombo', '2026-01-16 07:30:00', 25.00, 'Pending', '2026-01-16 07:30:04', NULL),
-(148, 'ORD0010', 'CUS0001', 'PAKG005', 'Deandra Bolgoda', '2026-12-06 08:00:00', 20.00, 'Pending', '2026-01-19 09:17:17', NULL),
-(149, 'ORD0011', 'CUS0001', 'PAKG002', 'Test Location', '2026-01-20 20:06:00', 15.00, 'Pending', '2026-01-19 19:05:42', NULL),
-(150, 'ORD0012', 'CUS0010', 'SHIMER', 'Location', '2026-01-20 19:14:00', 17.00, 'Pending', '2026-01-19 19:15:01', NULL);
+(167, 'ORD0001', 'CUS0001', 'PAKG003', 'Test', '2026-01-30 23:51:00', 0.00, 'Approved', '2026-01-26 13:21:37', NULL),
+(169, 'ORD0003', 'CUS0001', 'PAKG001', 'Test', '2026-01-28 18:55:00', 0.00, 'Completed', '2026-01-28 08:25:12', NULL),
+(170, 'ORD0004', 'CUS0009', 'PAKG001', 'Nj ', '2026-02-11 00:28:00', 0.00, 'Pending', '2026-01-30 00:28:16', NULL);
 
 -- --------------------------------------------------------
 
@@ -270,7 +320,7 @@ CREATE TABLE `tbl_order_addons` (
   `Id` int(11) NOT NULL,
   `Order_Id` varchar(11) NOT NULL,
   `Addon_Id` int(11) NOT NULL,
-  `Addon_Price` float(10,2) NOT NULL
+  `Addon_Price` float(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -278,19 +328,12 @@ CREATE TABLE `tbl_order_addons` (
 --
 
 INSERT INTO `tbl_order_addons` (`Id`, `Order_Id`, `Addon_Id`, `Addon_Price`) VALUES
-(187, 'ORD0004', 1, 35.00),
-(188, 'ORD0004', 2, 12.00),
-(189, 'ORD0005', 2, 12.00),
-(190, 'ORD0005', 4, 60.00),
-(191, 'ORD0006', 1, 35.00),
-(192, 'ORD0006', 2, 12.00),
-(193, 'ORD0007', 1, 35.00),
-(194, 'ORD0007', 2, 12.00),
-(195, 'ORD0008', 1, 35.00),
-(196, 'ORD0009', 2, 12.00),
-(197, 'ORD0010', 5, 100.00),
-(198, 'ORD0011', 1, 35.00),
-(199, 'ORD0011', 2, 12.00);
+(219, 'ORD0001', 9, 0.00),
+(220, 'ORD0001', 10, 0.00),
+(222, 'ORD0003', 9, 0.00),
+(223, 'ORD0003', 10, 0.00),
+(224, 'ORD0004', 9, 0.00),
+(225, 'ORD0004', 12, 0.00);
 
 -- --------------------------------------------------------
 
@@ -303,7 +346,7 @@ CREATE TABLE `tbl_package` (
   `Package_Id` varchar(11) NOT NULL,
   `Package_Name` varchar(50) NOT NULL,
   `Package_Description` varchar(250) NOT NULL,
-  `Price` float(10,2) NOT NULL
+  `Price` float(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -311,11 +354,11 @@ CREATE TABLE `tbl_package` (
 --
 
 INSERT INTO `tbl_package` (`Id`, `Package_Id`, `Package_Name`, `Package_Description`, `Price`) VALUES
-(1, 'PAKG001', 'Package 01', '<ul>\r\n<li>One backdrop with balloon garland (any three colors)</li>\r\n<li>Neon sign (Oh baby sign / birthday sign)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n</ul>', 25.50),
-(2, 'PAKG002', 'Package 02', '<ul>\r\n<li>2 backdrops with balloon garland (any three colors)</li>\r\n<li>Neon sign (Oh baby sign / birthday sign)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n<li>Floor carpet</li>\r\n</ul>', 15.00),
-(8, 'PAKG003', 'Package 03', '<ul>\r\n<li>3 backdrops with balloon garland (any three colors)</li>\r\n<li>Neon sign (Oh baby sign / birthday sign)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n<li>Floor carpet</li>\r\n</ul>', 20.00),
-(9, 'SHIMER', 'Shimmer Wall', '<ul>\r\n<li>Shimmer wall with balloon garland (any three colors)</li>\r\n<li>Neon sign(Oh baby sign / birthday sign,Sweet sixteen)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n<li>White floor carpet</li>\r\n</ul>', 17.00),
-(28, 'PAKG005', 'Package 05', '<ul>\r\n<li>3 backdrops with&nbsp; balloon garland (any three colors)</li>\r\n<li>Neon sign (Oh baby sign / birthday sign)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n<li>Floor carpet</li>\r\n<li>10 centerpieces</li>\r\n<li>Welcome board decoration.</li>\r\n', 20.00);
+(1, 'PAKG001', 'Bronze 1', '<p>&nbsp;</p>\r\n<ul>\r\n<li>one backdrop with balloon garland (choice of any three colors)</li>\r\n<li>Neon sign (options: Oh Baby, Sweet Sixteen, or Happy Birthday)</li>\r\n<li>one pedestal stand&nbsp; (any color)</li>\r\n<li>Floor rug</li>\r\n</ul>', 0.00),
+(2, 'PAKG002', 'Silver', '<ul>\r\n<li>two backdrops with balloon garland (any three colors)</li>\r\n<li>Neon sign (Oh baby / Happy birthday/sweet sixteen)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n<li>Floor carpet</li>\r\n</ul>', 0.00),
+(8, 'PAKG003', 'Gold ', '<ul>\r\n<li>Three backdrops with balloon garland (any three colors)</li>\r\n<li>Neon sign (Oh baby / Happy birthday/sweet sixteen)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n<li>Floor carpet</li>\r\n</ul>', 0.00),
+(9, 'SHIMER', 'Shimmer Wall', '<ul>\r\n<li>Shimmer wall with balloon garland&nbsp;</li>\r\n<li>Neon sign(Oh baby / Happy birthday /Sweet sixteen)</li>\r\n<li>Pedestal stands (any color)</li>\r\n<li>Floor carpet</li>\r\n</ul>', 0.00),
+(28, 'PAKG005', 'Platinum', '<ul>\r\n<li>Three backdrops with&nbsp; balloon garland (any three colors)</li>\r\n<li>Neon sign (Oh baby / Happy birthday/sweet sixteen)</li>\r\n<li>3 Pedestal stands (any color)</li>\r\n<li>Floor carpet</li>\r\n<li>10 centerpieces</li>\r\n<li>Welcome boar</li>\r', 0.00);
 
 -- --------------------------------------------------------
 
@@ -337,10 +380,10 @@ CREATE TABLE `tbl_reviews` (
 --
 
 INSERT INTO `tbl_reviews` (`Id`, `Customer_Id`, `Star_Rating`, `Message`, `Is_Approved`, `Created_Date`) VALUES
-(5, 'CUS0008', 4, 'Highly Recomended', 1, '2026-01-05 23:42:46'),
-(7, 'CUS0005', 3, 'Best', 1, '2026-01-06 14:04:44'),
-(8, 'CUS0001', 3, 'Good Service', 1, '2026-01-19 09:22:46'),
-(9, 'CUS0010', 1, 'Test', 1, '2026-01-19 19:13:46');
+(12, 'CUS0001', 5, 'The design quality is exceptional with a perfect balance of simplicity and modern style. Bloomdeous delivers a smooth, creative experience that truly stands out.', 1, '2026-01-28 10:34:41'),
+(13, 'CUS0001', 5, 'Bloomdeous showcases top-tier design quality with a clean, modern aesthetic. Every detail feels intentional, making it an excellent choice for creative professionals.', 1, '2026-01-28 10:35:49'),
+(14, 'CUS0001', 5, 'Outstanding design with a sleek and modern feel. Bloomdeous is thoughtfully crafted and highly recommended for anyone who values quality and creativity.', 1, '2026-01-28 10:36:12'),
+(15, 'CUS0001', 3, 'Best Service', 1, '2026-01-28 11:39:04');
 
 -- --------------------------------------------------------
 
@@ -360,7 +403,8 @@ CREATE TABLE `tbl_roles` (
 
 INSERT INTO `tbl_roles` (`Id`, `Role_Id`, `Role_Name`) VALUES
 (1, 'ROL0001', 'Super Admin'),
-(15, 'ROL0002', 'System User');
+(15, 'ROL0002', 'System User'),
+(17, 'ROL0003', 'Guest User');
 
 -- --------------------------------------------------------
 
@@ -419,7 +463,25 @@ INSERT INTO `tbl_screen_permissions` (`Permission_Id`, `Role`, `Screen_Id`) VALU
 (518, 'Super Admin', 312),
 (542, 'Super Admin', 350),
 (543, 'Super Admin', 351),
-(545, 'Super Admin', 352);
+(545, 'Super Admin', 352),
+(546, 'System User', 303),
+(547, 'System User', 307),
+(550, 'System User', 312),
+(551, 'System User', 346),
+(552, 'System User', 348),
+(553, 'System User', 350),
+(554, 'System User', 351),
+(555, 'System User', 352),
+(556, 'System User', 333),
+(557, 'Guest User', 303),
+(558, 'Guest User', 307),
+(561, 'Guest User', 312),
+(562, 'Guest User', 333),
+(563, 'Guest User', 346),
+(564, 'Guest User', 348),
+(565, 'Guest User', 350),
+(566, 'Guest User', 351),
+(567, 'Guest User', 352);
 
 -- --------------------------------------------------------
 
@@ -463,8 +525,10 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`Id`, `First_Name`, `Last_Name`, `Username`, `Password`, `Status`, `Img`) VALUES
-(1, 'Super', 'Administrator', 'super_admin', 'e10adc3949ba59abbe56e057f20f883e', 'Super Admin', 'Images/Admins/default_profile.png'),
-(18, 'System', 'User', 'system_user', 'e10adc3949ba59abbe56e057f20f883e', 'System User', 'Images/Admins/default_profile.png');
+(1, 'Super', 'Administrator', 'super_admin', 'e10adc3949ba59abbe56e057f20f883e', 'Super Admin', 'Images/Admins/super_admin.jpg?v=1771587409'),
+(18, 'System', 'User', 'system_user', 'e10adc3949ba59abbe56e057f20f883e', 'System User', 'Images/Admins/default_profile.png'),
+(19, 'Bloom', 'Deco', 'BloomdecoUS', 'e10adc3949ba59abbe56e057f20f883e', 'System User', 'Images/Admins/default_profile.png'),
+(20, 'Piumi', 'Rananjali', 'piumi.r', 'e10adc3949ba59abbe56e057f20f883e', 'Guest User', 'Images/Admins/default_profile.png');
 
 --
 -- Indexes for dumped tables
@@ -587,7 +651,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_addon`
 --
 ALTER TABLE `tbl_addon`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tbl_backend`
@@ -599,7 +663,7 @@ ALTER TABLE `tbl_backend`
 -- AUTO_INCREMENT for table `tbl_backend_permissions`
 --
 ALTER TABLE `tbl_backend_permissions`
-  MODIFY `Permission_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1238;
+  MODIFY `Permission_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1304;
 
 --
 -- AUTO_INCREMENT for table `tbl_company_info`
@@ -611,25 +675,25 @@ ALTER TABLE `tbl_company_info`
 -- AUTO_INCREMENT for table `tbl_contact`
 --
 ALTER TABLE `tbl_contact`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
 
 --
 -- AUTO_INCREMENT for table `tbl_customers`
 --
 ALTER TABLE `tbl_customers`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `tbl_orders`
 --
 ALTER TABLE `tbl_orders`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=151;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_addons`
 --
 ALTER TABLE `tbl_order_addons`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=200;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
 
 --
 -- AUTO_INCREMENT for table `tbl_package`
@@ -641,13 +705,13 @@ ALTER TABLE `tbl_package`
 -- AUTO_INCREMENT for table `tbl_reviews`
 --
 ALTER TABLE `tbl_reviews`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `tbl_roles`
 --
 ALTER TABLE `tbl_roles`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `tbl_screens`
@@ -659,7 +723,7 @@ ALTER TABLE `tbl_screens`
 -- AUTO_INCREMENT for table `tbl_screen_permissions`
 --
 ALTER TABLE `tbl_screen_permissions`
-  MODIFY `Permission_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=546;
+  MODIFY `Permission_Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=568;
 
 --
 -- AUTO_INCREMENT for table `tbl_system_configuration`
@@ -671,7 +735,7 @@ ALTER TABLE `tbl_system_configuration`
 -- AUTO_INCREMENT for table `tbl_user`
 --
 ALTER TABLE `tbl_user`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables
