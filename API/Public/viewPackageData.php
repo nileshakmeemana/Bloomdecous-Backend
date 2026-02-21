@@ -3,6 +3,7 @@
 header("Access-Control-Allow-Origin: *");
 header("Content-Type: application/json; charset=UTF-8");
 require '../../API/Connection/config.php';
+include '../Connection/uploadurl.php';
 
 $Package_Id = $_REQUEST["Package_Id"];
 
@@ -39,10 +40,15 @@ $addons = array();
 
 if ($resultAddons->num_rows > 0) {
     while ($rowAddons = $resultAddons->fetch_assoc()) {
+
+        $imgPath = $rowAddons["Img"];
+        $img_url = $base_url . $imgPath;
+
         // Construct addons data
         $addonsData = array(
             'Id' => $rowAddons['Id'],
             'Addon_Name' => $rowAddons['Addon_Name'],
+            'Img' => $img_url,
             'Addon_description' => $rowAddons['Addon_description'],
             'Addon_Price' => $rowAddons['Addon_Price']
         );

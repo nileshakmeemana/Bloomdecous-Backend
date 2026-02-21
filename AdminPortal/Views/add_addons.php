@@ -264,6 +264,12 @@ if (mysqli_num_rows($permission_query) > 0) {
 				?>
 				<!-- /Model Alerts -->
 
+				<!-- /Image Preview -->
+				<?php
+				require '../Models/imagePreview.php';
+				?>
+				<!-- /Image Preview -->
+
 				<!-- /Page Header -->
 				<div class="row">
 					<div class="col-sm-12">
@@ -599,7 +605,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 
 							table.row.add([
 								row.Id,
-								'<a href="' + row.Img + '" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="' + row.Img + '" style="width: 40px; height: 40px; object-fit: cover; border-radius: 50%;"></a>' + row.Addon_Name,
+								'<a href="javascript:void(0);" class="avatar avatar-sm mr-2 preview-image" data-img="' + row.Img + '">' + '<img class="avatar-img rounded-circle" src="' + row.Img + '" style="width:40px;height:40px;object-fit:cover;border-radius:50%;">' + '</a>' + row.Addon_Name,
 								row.Addon_description,
 								// formattedAddonPrice,
 								actionButtons
@@ -951,6 +957,24 @@ if (mysqli_num_rows($permission_query) > 0) {
 				}
 			});
 
+			// Open image preview
+			$(document).on('click', '.preview-image', function () {
+				const imgSrc = $(this).data('img');
+				$('#fullPreviewImage').attr('src', imgSrc);
+				$('#imagePreviewModal').fadeIn();
+			});
+
+			// Close when clicking X
+			$('.close-preview').click(function () {
+				$('#imagePreviewModal').fadeOut();
+			});
+
+			// Close when clicking outside image
+			$('#imagePreviewModal').click(function (e) {
+				if (e.target.id === 'imagePreviewModal') {
+					$(this).fadeOut();
+				}
+			});
 		});
 	</script>
 

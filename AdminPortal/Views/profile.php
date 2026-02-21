@@ -47,7 +47,6 @@ if ($result && mysqli_num_rows($result) > 0) {
 		<![endif]-->
 
 	<style>
-
 		/* Floating Edit Button */
 		.edit-profile-btn {
 			position: absolute;
@@ -63,7 +62,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 			align-items: center;
 			justify-content: center;
 			cursor: pointer;
-			box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+			box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
 			padding: 0;
 		}
 
@@ -111,56 +110,59 @@ if ($result && mysqli_num_rows($result) > 0) {
 		}
 
 		/* Full-Screen Loader */
-        #pageLoader {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgb(255, 255, 255);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
+		#pageLoader {
+			position: fixed;
+			top: 0;
+			left: 0;
+			width: 100%;
+			height: 100%;
+			background: rgb(255, 255, 255);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			z-index: 9999;
+		}
 
-        .loader-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
+		.loader-content {
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+		}
 
-        /* Logo fade animation */
-        .loader-logo {
-            width: 180px;
-            height: auto;
-            animation: fadePulse 1.5s infinite ease-in-out;
-        }
+		/* Logo fade animation */
+		.loader-logo {
+			width: 180px;
+			height: auto;
+			animation: fadePulse 1.5s infinite ease-in-out;
+		}
 
-        @keyframes fadePulse {
-            0% {
-                opacity: 0.4;
-            }
-            50% {
-                opacity: 1;
-            }
-            100% {
-                opacity: 0.4;
-            }
-        }
-        /* Full-Screen Loader */
+		@keyframes fadePulse {
+			0% {
+				opacity: 0.4;
+			}
+
+			50% {
+				opacity: 1;
+			}
+
+			100% {
+				opacity: 0.4;
+			}
+		}
+
+		/* Full-Screen Loader */
 	</style>
 </head>
 
 <body>
 
 	<!-- Full-Screen Loader -->
-    <div id="pageLoader">
-        <div class="loader-content">
-            <img src="assets/img/loader.png" alt="Loading..." class="loader-logo">
-        </div>
-    </div>
-    <!-- /Full-Screen Loader -->
+	<div id="pageLoader">
+		<div class="loader-content">
+			<img src="assets/img/loader.png" alt="Loading..." class="loader-logo">
+		</div>
+	</div>
+	<!-- /Full-Screen Loader -->
 
 	<!-- Main Wrapper -->
 	<div class="main-wrapper">
@@ -216,9 +218,15 @@ if ($result && mysqli_num_rows($result) > 0) {
 
 				<!-- /Model Alerts -->
 				<?php
-					require '../Models/alerts.php';
+				require '../Models/alerts.php';
 				?>
 				<!-- /Model Alerts -->
+
+				<!-- /Image Preview -->
+				<?php
+				require '../Models/imagePreview.php';
+				?>
+				<!-- /Image Preview -->
 
 				<!-- Page Header -->
 				<div class="page-header">
@@ -239,9 +247,9 @@ if ($result && mysqli_num_rows($result) > 0) {
 						<div class="profile-header">
 							<div class="row align-items-center">
 								<div class="col-auto profile-image-wrapper">
-									<a href="#">
-										<img class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%;" src="assets/img/default-user.png" alt="User Image" id="ProfileImage">
-									</a>
+								<a href="javascript:void(0);" class="preview-image">
+									<img class="rounded-circle" style="width: 100px; height: 100px; object-fit: cover; border-radius: 50%; cursor:pointer;" src="assets/img/default-user.png" alt="User Image" id="ProfileImage">
+								</a>
 
 									<!-- Edit Icon -->
 									<button type="button" class="edit-profile-btn" id="editProfileImageBtn" title="Edit Image">
@@ -482,12 +490,12 @@ if ($result && mysqli_num_rows($result) > 0) {
 		$(document).ready(function() {
 
 			// Open image upload modal
-			$('#editProfileImageBtn').on('click', function () {
+			$('#editProfileImageBtn').on('click', function() {
 				$('#Update_Profile_Image').modal('show');
 			});
 
 			// Submit profile image via AJAX
-			$('#updateProfileImageForm').submit(function (event) {
+			$('#updateProfileImageForm').submit(function(event) {
 				event.preventDefault();
 
 				$('#pageLoader').show();
@@ -499,7 +507,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 					processData: false,
 					contentType: false,
 					dataType: 'json',
-					success: function (response) {
+					success: function(response) {
 
 						if (typeof response === 'string') {
 							response = JSON.parse(response);
@@ -512,11 +520,11 @@ if ($result && mysqli_num_rows($result) > 0) {
 						// Refresh image only
 						fetchProfileDetails();
 					},
-					error: function () {
+					error: function() {
 						$('#Update_Profile_Image').modal('hide');
 						$('#UpdateFailedModel').modal('show');
 					},
-					complete: function () {
+					complete: function() {
 						$('#pageLoader').hide();
 					}
 				});
@@ -697,6 +705,29 @@ if ($result && mysqli_num_rows($result) > 0) {
 			});
 		});
 
+		// Open image preview
+		$(document).on('click', '.preview-image', function () {
+			// Get image inside the clicked wrapper
+			const imgSrc = $(this).find('img').attr('src');
+
+			if (imgSrc) {
+				$('#fullPreviewImage').attr('src', imgSrc);
+				$('#imagePreviewModal').fadeIn();
+			}
+		});
+
+		// Close when clicking X
+		$('.close-preview').click(function() {
+			$('#imagePreviewModal').fadeOut();
+		});
+
+		// Close when clicking outside image
+		$('#imagePreviewModal').click(function(e) {
+			if (e.target.id === 'imagePreviewModal') {
+				$(this).fadeOut();
+			}
+		});
+
 		/* ===============================
 		DRAG & DROP + IMAGE PREVIEW
 		================================= */
@@ -742,7 +773,7 @@ if ($result && mysqli_num_rows($result) > 0) {
 			if (!file.type.startsWith('image/')) return;
 
 			const reader = new FileReader();
-			reader.onload = function (e) {
+			reader.onload = function(e) {
 				preview.src = e.target.result;
 				preview.style.display = 'block';
 				dropZone.querySelector('.placeholder').style.display = 'none';
