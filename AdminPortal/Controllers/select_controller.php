@@ -1,15 +1,15 @@
 <?php
 	class DBController 
 	{
-		  private $host = "localhost";
-		  private $user = "root";
-		  private $password = "";
-		  private $database = "db_bloomdecous";
-
 		//   private $host = "localhost";
-		//   private $user = "mdrizxbowc_bloomdeco";
-		//   private $password = "I~mqQ26*~URT";
-		//   private $database = "mdrizxbowc_db_bloomdecous";
+		//   private $user = "root";
+		//   private $password = "";
+		//   private $database = "db_bloomdecous";
+
+		  private $host = "localhost";
+		  private $user = "mdrizxbowc_bloomdeco";
+		  private $password = "I~mqQ26*~URT";
+		  private $database = "mdrizxbowc_db_bloomdecous";
 		  private $conn;
 
 		function __construct() 

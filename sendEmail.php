@@ -15,6 +15,7 @@ header('Content-Type: application/json');
 $from = isset($_POST['from']) ? $_POST['from'] : '';
 $name = isset($_POST['name']) ? $_POST['name'] : '';
 $to = isset($_POST['to']) ? $_POST['to'] : '';
+$cc = isset($_POST['cc']) ? $_POST['cc'] : '';
 $subject = isset($_POST['subject']) ? $_POST['subject'] : '';
 $body = isset($_POST['body']) ? $_POST['body'] : '';
 
@@ -45,8 +46,24 @@ try {
     $mail->Port       = 465;                          // Use 587 for TLS, 465 for SSL
 
     // Recipients
-    $mail->setFrom($from, $name);
-    $mail->addAddress($to);
+    // $mail->setFrom($from, $name);
+    // $mail->addAddress($to);
+
+    // Multiple TO emails support
+    $toEmails = explode(',', $to);
+    foreach ($toEmails as $email) {
+        $mail->setFrom($from, $name);
+        $mail->addAddress(trim($email));
+    }
+
+    // CC support
+    if (!empty($cc)) {
+        $ccEmails = explode(',', $cc);
+        foreach ($ccEmails as $email) {
+            $mail->setFrom($from, $name);
+            $mail->addCC(trim($email));
+        }
+    }
 
     // Content
     $mail->isHTML(true);

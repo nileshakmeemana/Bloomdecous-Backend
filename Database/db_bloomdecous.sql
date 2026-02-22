@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 20, 2026 at 04:29 PM
+-- Generation Time: Feb 22, 2026 at 06:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -40,10 +40,12 @@ CREATE TABLE `tbl_addon` (
 --
 
 INSERT INTO `tbl_addon` (`Id`, `Addon_Name`, `Img`, `Addon_description`, `Addon_Price`) VALUES
-(9, 'Balloon Centerpieces', 'Images/Addons/9.jpg?v=1771587685', '<p>balloon centerpieces $20 Up</p>', 0.00),
-(10, 'Flower Centerpieces', 'Images/Addons/10.jpg?v=1771588754', '<p>flower centerpieces $35 Up</p>', 0.00),
-(12, 'Love Seat', 'Images/Addons/12.jpg?v=1771588804', '<p>Love Seat $100 Up</p>', 0.00),
-(13, 'Welcome Sign size 18\" by 24\"', 'Images/Addons/13.jpg?v=1771601230', '<p>Welcome Sign size 18\" by 24\" $60 and Up</p>', 0.00);
+(9, 'Balloon Centerpieces', 'Images/Addons/9.jpeg?v=1771653206', '<p>Elegant balloon arrangements designed to enhance your table. Adds color, height, and a festive touch to your event setting.</p>', 0.00),
+(10, 'Flower Centerpieces', 'Images/Addons/10.jpeg?v=1771653392', '<p>Fresh or artificial floral arrangements crafted for a graceful look.&nbsp;Perfect for creating a romantic and sophisticated atmosphere.</p>', 0.00),
+(12, 'Love Seat', 'Images/Addons/12.jpeg?v=1771653768', '<p>A stylish two-seater sofa for the couple or special guests.&nbsp;Adds comfort and elegance to your stage or photo area.</p>', 0.00),
+(13, 'Welcome Sign 18\" by 24\"', 'Images/Addons/13.jpg?v=1771654264', '<p>Custom-designed welcome sign to greet your guests beautifully.&nbsp;Printed in premium quality for a classy entrance display.</p>', 0.00),
+(25, 'Throne Chair (Gold or Silver)', 'Images/Addons/25.jpeg?v=1771653536', '<p>Royal-style throne chair available in gold or silver finish.&nbsp;Creates a luxurious focal point for the main seating area.</p>', 0.00),
+(26, 'Welcome Board Decoration', 'Images/Addons/26.jpg?v=1771654124', '<p>Decorated welcome board styled to match your event theme.&nbsp;Enhances the entrance with a warm and personalized touch.</p>', 0.00);
 
 -- --------------------------------------------------------
 
@@ -229,7 +231,7 @@ CREATE TABLE `tbl_company_info` (
 --
 
 INSERT INTO `tbl_company_info` (`Id`, `Company_Name`, `Company_Address`, `Company_Email`, `Company_Tel1`, `Company_Tel2`, `Company_Tel3`) VALUES
-(1, 'BloomdecoUS', 'New York, NY, United States, New York 10306', 'orbissolutionslk@gmail.com', '+19294216047', NULL, NULL);
+(1, 'BloomdecoUS', 'New York, NY, United States, New York 10306', 'bloomdecous@gmail.com', '+19294216047', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -251,10 +253,9 @@ CREATE TABLE `tbl_contact` (
 
 INSERT INTO `tbl_contact` (`Id`, `Customer_Id`, `Subject`, `Message`, `Created_Date`) VALUES
 (20, 'CUS0001', 'Requesting An Appointment', 'For Testing', '2026-01-19 20:30:47'),
-(21, 'CUS0007', 'first birthday', 'cmldvlsjs;sm;smvgsgjsgsvlm;msmg', '2026-01-25 13:50:07'),
-(22, 'CUS0007', 'jkjjljljl', 'nlhhlnln', '2026-01-25 13:52:29'),
 (23, 'CUS0001', 'Test', 'Details', '2026-01-26 13:20:18'),
-(24, 'CUS0001', 'Price List Request', 'Give me Package Price List', '2026-01-28 08:29:10');
+(24, 'CUS0001', 'Price List Request', 'Give me Package Price List', '2026-01-28 08:29:10'),
+(27, 'CUS0001', 'Requesting An Appointment', 'Need the Price List of Packages & Addons', '2026-02-21 13:03:17');
 
 -- --------------------------------------------------------
 
@@ -306,8 +307,6 @@ CREATE TABLE `tbl_orders` (
 --
 
 INSERT INTO `tbl_orders` (`Id`, `Order_Id`, `Customer_Id`, `Package_Id`, `Event_Location`, `Event_DateTime`, `Package_Price`, `Status`, `Order_Date`, `Reject_Cancel_Reason`) VALUES
-(167, 'ORD0001', 'CUS0001', 'PAKG003', 'Test', '2026-01-30 23:51:00', 0.00, 'Approved', '2026-01-26 13:21:37', NULL),
-(169, 'ORD0003', 'CUS0001', 'PAKG001', 'Test', '2026-01-28 18:55:00', 0.00, 'Completed', '2026-01-28 08:25:12', NULL),
 (170, 'ORD0004', 'CUS0009', 'PAKG001', 'Nj ', '2026-02-11 00:28:00', 0.00, 'Pending', '2026-01-30 00:28:16', NULL);
 
 -- --------------------------------------------------------
@@ -328,10 +327,6 @@ CREATE TABLE `tbl_order_addons` (
 --
 
 INSERT INTO `tbl_order_addons` (`Id`, `Order_Id`, `Addon_Id`, `Addon_Price`) VALUES
-(219, 'ORD0001', 9, 0.00),
-(220, 'ORD0001', 10, 0.00),
-(222, 'ORD0003', 9, 0.00),
-(223, 'ORD0003', 10, 0.00),
 (224, 'ORD0004', 9, 0.00),
 (225, 'ORD0004', 12, 0.00);
 
@@ -525,7 +520,7 @@ CREATE TABLE `tbl_user` (
 --
 
 INSERT INTO `tbl_user` (`Id`, `First_Name`, `Last_Name`, `Username`, `Password`, `Status`, `Img`) VALUES
-(1, 'Super', 'Administrator', 'super_admin', 'e10adc3949ba59abbe56e057f20f883e', 'Super Admin', 'Images/Admins/super_admin.jpg?v=1771587409'),
+(1, 'Super', 'Administrator', 'super_admin', 'e10adc3949ba59abbe56e057f20f883e', 'Super Admin', 'Images/Admins/default_profile.png'),
 (18, 'System', 'User', 'system_user', 'e10adc3949ba59abbe56e057f20f883e', 'System User', 'Images/Admins/default_profile.png'),
 (19, 'Bloom', 'Deco', 'BloomdecoUS', 'e10adc3949ba59abbe56e057f20f883e', 'System User', 'Images/Admins/default_profile.png'),
 (20, 'Piumi', 'Rananjali', 'piumi.r', 'e10adc3949ba59abbe56e057f20f883e', 'Guest User', 'Images/Admins/default_profile.png');
@@ -651,7 +646,7 @@ ALTER TABLE `tbl_user`
 -- AUTO_INCREMENT for table `tbl_addon`
 --
 ALTER TABLE `tbl_addon`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
 -- AUTO_INCREMENT for table `tbl_backend`
@@ -675,7 +670,7 @@ ALTER TABLE `tbl_company_info`
 -- AUTO_INCREMENT for table `tbl_contact`
 --
 ALTER TABLE `tbl_contact`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=25;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `tbl_customers`
@@ -687,13 +682,13 @@ ALTER TABLE `tbl_customers`
 -- AUTO_INCREMENT for table `tbl_orders`
 --
 ALTER TABLE `tbl_orders`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=171;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=180;
 
 --
 -- AUTO_INCREMENT for table `tbl_order_addons`
 --
 ALTER TABLE `tbl_order_addons`
-  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
+  MODIFY `Id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=240;
 
 --
 -- AUTO_INCREMENT for table `tbl_package`
