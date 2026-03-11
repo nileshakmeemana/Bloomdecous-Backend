@@ -6,15 +6,15 @@
 		//   private $password = "";
 		//   private $database = "db_bloomdecous";
 
-		//   private $host = "localhost";
-		//   private $user = "mdrizxbowc_bloomdeco";
-		//   private $password = "I~mqQ26*~URT";
-		//   private $database = "mdrizxbowc_db_bloomdecous";
-
 		  private $host = "localhost";
-		  private $user = "mdrizxbowc_bloomdeco_uat";
-		  private $password = "anJ*f$72[R_#";
-		  private $database = "mdrizxbowc_db_bloomdecous_uat";
+		  private $user = "mdrizxbowc_bloomdeco";
+		  private $password = "I~mqQ26*~URT";
+		  private $database = "mdrizxbowc_db_bloomdecous";
+
+		//   private $host = "localhost";
+		//   private $user = "mdrizxbowc_bloomdeco_uat";
+		//   private $password = "anJ*f$72[R_#";
+		//   private $database = "mdrizxbowc_db_bloomdecous_uat";
 		  private $conn;
 
 		function __construct() 
