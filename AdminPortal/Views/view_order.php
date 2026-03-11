@@ -460,7 +460,7 @@ if (mysqli_num_rows($permission_query) > 0) {
 
 		<!-- Select2 JS -->
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-		<script src="https://cdn.tiny.cloud/1/2d97jyc4gvuspgz5colxqhp9cfvv2ob07mrjmmtat4v9cd7c/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
+		<script src="https://cdn.tiny.cloud/1/<?php echo TINYMCE_API_KEY; ?>/tinymce/8/tinymce.min.js" referrerpolicy="origin" crossorigin="anonymous"></script>
 
 		<script>
 		$(document).ready(function() {
