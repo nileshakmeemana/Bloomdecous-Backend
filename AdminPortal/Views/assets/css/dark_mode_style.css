@@ -19,6 +19,16 @@ body.dark-mode .text-muted {
     color: #ffffff !important;
 }
 
+/* Default paragraph color in dark mode */
+body.dark-mode table tbody tr p {
+    color: #ffffff !important;
+}
+
+/* When row is hovered → show muted color */
+body.dark-mode table tbody tr:hover p {
+    color: #333 !important; /* muted grey */
+}
+
 /* ================================
    HEADER
 ================================ */
