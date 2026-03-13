@@ -177,7 +177,7 @@
                 ['Registered Customers', pageData.Count_Customers || 0],
                 ['Packages', pageData.Count_Packages || 0],
                 ['Addons', pageData.Count_Addon || 0],
-                ['Reviews', pageData.Count_Addon || 0]
+                ['Reviews', pageData.Count_Reviews || 0]
             ];
             countFields.forEach(([label, val]) => countsHtml += makeTileHtml(label, val));
             document.getElementById('tiles-counts').innerHTML = countsHtml;
