@@ -150,10 +150,6 @@ body.dark-mode .profile-menu .nav-tabs.nav-tabs-solid .nav-link {
     background-color: #111 !important;   /* Slightly lighter for separation */
 }
 
-body.dark-mode .profile-menu .nav-tabs.nav-tabs-solid :hover{
-    background-color: #222 !important;   /* Slightly lighter for separation */
-}
-
 body.dark-mode .profile-menu .nav-tabs.nav-tabs-solid .nav-link.active {
     background-color: #b19316 !important;   /* Active tab darker highlight */
 }
